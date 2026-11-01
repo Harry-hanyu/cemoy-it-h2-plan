@@ -4,18 +4,25 @@
 
 | 项 | 状态 |
 |----|------|
-| 正式版 HTML | ✅ `docs/IT半年度工作规划-正式版.html` / `public/index.html` |
-| 预算口径更新 | ✅ 云半年 2–3 万；影刀持续 10 账号；汇总 A/B |
-| Codex+影刀策略 | ✅ Codex 实现/补充 + 影刀 10 账号持续 |
-| 外网访问 | ✅ 临时隧道（本机进程需保持） |
+| 正式版 HTML | ✅ 已按最新口径定稿 |
+| GitHub Pages | ✅ 已发布（公开仓库） |
+| 隧道 | ❌ 已停用并清理 |
 
-## 外网地址（临时 Quick Tunnel）
+## 外网访问（Git 免费域名，非隧道）
 
-https://collector-sake-creek-hierarchy.trycloudflare.com/
-
-> WorkBuddy 的外网域名走其内置 `publishPage`（腾讯侧），Cursor 无法直接调用。当前用 Cloudflare Quick Tunnel 等价「外网可打开」。本机关进程后链接失效；重发：`scripts/publish-public.sh`
+- **GitHub Pages**：https://harry-hanyu.github.io/cemoy-it-h2-plan/
+- **仓库**：https://github.com/Harry-hanyu/cemoy-it-h2-plan
+- **国内 CDN 镜像（jsDelivr）**：https://cdn.jsdelivr.net/gh/Harry-hanyu/cemoy-it-h2-plan@main/index.html
 
 ## 预算速记
 
-- 不含人力（影刀年费计入）：约 **8.3～9.3 万** / 半年  
-- 含人力全部：约 **19.1～21.3 万** / 半年  
+- **不含人力**（影刀年费 4 万计入）：约 **8.3～9.3 万** / 半年  
+- **含人力全部**：约 **19.1～21.3 万** / 半年  
+
+## 更新发布
+
+```bash
+bash ~/Projects/cemoy-it-h2-plan/scripts/publish-pages.sh
+```
+
+改 `docs/IT半年度工作规划-正式版.html` → 脚本同步到 `index.html` 并 push → Pages 约 1～2 分钟生效。
