@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IT 半年度工作规划（草案）</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --paper: #fffcf7;
+      --ink: #1a1f2b;
+      --muted: #5c6478;
+      --line: #d8d2c6;
+      --accent: #0f5c4c;
+      --accent-soft: #e4f0ec;
+      --warn: #8a4b12;
+      --warn-bg: #f8efe4;
+      --card: #ffffff;
+      --shadow: 0 1px 0 rgba(26, 31, 43, 0.04), 0 12px 32px rgba(26, 31, 43, 0.06);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #e8efe9 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, #efe8dc 0%, transparent 50%),
+        var(--bg);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 40px 20px 80px; }
+    header.hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 36px 36px 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    .lead { margin: 0; color: var(--muted); max-width: 42em; font-size: 15px; }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 10px 18px;
+      margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line);
+      font-size: 13px; color: var(--muted);
+    }
+    .meta strong { color: var(--ink); font-weight: 600; }
+    nav.toc {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--bg) 85%, white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-bottom: 28px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    nav.toc a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+    }
+    nav.toc a:hover { background: var(--card); border-color: var(--line); }
+    nav.toc a.warn {
+      color: var(--warn);
+      background: var(--warn-bg);
+      border-color: color-mix(in srgb, var(--warn) 25%, white);
+    }
+    section.block {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    section.block h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+    }
+    .sec-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 13px; font-weight: 700; margin-right: 8px;
+      vertical-align: 2px;
+    }
+    .sec-desc { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+    h3 {
+      margin: 22px 0 10px;
+      font-size: 16px;
+      color: var(--ink);
+    }
+    p { margin: 0 0 12px; font-size: 14.5px; }
+    ul, ol { margin: 0 0 12px; padding-left: 1.2em; font-size: 14.5px; }
+    li { margin: 4px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin: 8px 0 16px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f3f0ea;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    tr:nth-child(even) td { background: #fafaf8; }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .tag.later { background: #eef0f5; color: #3d4660; }
+    .callout {
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 12px 14px;
+      border-radius: 0 10px 10px 0;
+      font-size: 14px;
+      margin: 14px 0;
+    }
+    .callout.warn {
+      border-left-color: var(--warn);
+      background: var(--warn-bg);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      header.hero, section.block { padding: 22px 18px; }
+    }
+    .mini {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: #fffcf7;
+    }
+    .mini h4 { margin: 0 0 6px; font-size: 14px; }
+    .mini p { margin: 0; font-size: 13px; color: var(--muted); }
+    .todo-item {
+      border: 1px solid color-mix(in srgb, var(--warn) 30%, var(--line));
+      background: #fffaf4;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 8px 0;
+    }
+    .todo-item strong { display: block; margin-bottom: 4px; font-size: 14px; }
+    .todo-item span { font-size: 13px; color: var(--muted); }
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .path {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      margin: 12px 0 18px; font-size: 13px;
+    }
+    .path .step {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .path .arrow { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">IT Department · Semi-annual Plan</div>
+      <h1>IT 半年度工作规划</h1>
+      <p class="lead">
+        以财务自动化与经营数据能力建设为主线：前三个月在<strong>不改变现有主流程</strong>前提下提升人效；
+        半年度完成系统化能力，推动管理报表与业务经营融合。本文仅写入已确认信息；未告知事项集中列于文末，待补充后定稿。
+      </p>
+      <div class="meta">
+        <div><strong>状态</strong> 草案（待补充后定稿）</div>
+        <div><strong>整理日期</strong> 2026-11-01</div>
+        <div><strong>编制</strong> IT 部门负责人</div>
+        <div><strong>核心目标</strong> 管理报表出具日：约 18 号 → 逐步提前至 10 号</div>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="目录">
+      <a href="#s1">1. 半年规划</a>
+      <a href="#s2">2. 财务自动化</a>
+      <a href="#s3">3. 技术方案与资产</a>
+      <a href="#s4">4. 人员与资源</a>
+      <a href="#s5">5. 预算测算</a>
+      <a class="warn" href="#todo">待您补充</a>
+    </nav>
+
+    <!-- 1 -->
+    <section class="block" id="s1">
+      <h2><span class="sec-num">1</span>半年的工作规划</h2>
+      <p class="sec-desc">按阶段说明重点、问题、交付与优先级安排原因。</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>阶段</th>
+            <th>核心思路</th>
+            <th>主流程</th>
+            <th>重点做什么</th>
+            <th>解决什么问题</th>
+            <th>预期成果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag">前三个月</span><br>M1–M3</td>
+            <td>提升人效</td>
+            <td><strong>当前主流程不变</strong></td>
+            <td>用 RPA / 半人工 / 已接通 API，把数据收集与初加工效率提上来；计算侧开始进入云数据仓库分层</td>
+            <td>数据收集工作量大；本地处理与人工核算耗时长，拖累出表</td>
+            <td>关键导出链路人效提升；已接通平台营业额等可出天结果表；费用审批等完成 ODS→DWD 集成与清洗输出</td>
+          </tr>
+          <tr>
+            <td><span class="tag later">半年度</span><br>M1–M6</td>
+            <td>系统化解决方案</td>
+            <td>关键节点去人工依赖</td>
+            <td>系统自动解决关键人工节点；管理报表与业务打通；跨境进销存与货值等供应链数据可靠性完善</td>
+            <td>关键依赖人工；财务与业务是否有效融合尚不清楚；管理报表与经营脱节风险</td>
+            <td>形成经营上「财务 + 业务」融合的管理模式；更多链路 API 自动入仓；评估/落地资金清分等平台化能力</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>优先级安排与原因</h3>
+      <ol>
+        <li><strong>先保出表与人效，主流程不动</strong> — 避免半年度改革一开始就打断财务关账与管理报表节奏。</li>
+        <li><strong>收集用 RPA、计算用云数据仓库并行</strong> — 对应「18 号出表」的两大根因，缺一不可。</li>
+        <li><strong>费用归属等先制度 + 人工严控，平台化半年评估</strong> — 改造审批流前先保证填报与审核准确性，再决定自研/外采清分平台。</li>
+        <li><strong>跨境进销存、全平台营业额、货值供应链放半年度</strong> — 依赖主数据与多方协同，适合系统化阶段交付。</li>
+      </ol>
+
+      <div class="callout warn">
+        <strong>尚未明确（不写入阶段表）：</strong>规划起止具体月份/财年标签；各月更细排期；前三月可量化人效 KPI（节省人天、出表日提前天数等）。见文末待补充。
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="block" id="s2">
+      <h2><span class="sec-num">2</span>财务自动化的落地方案</h2>
+      <p class="sec-desc">结合财务实际问题：数据源、处理与核算、与现流程衔接、结果校验；并判断 18→10 号路径。</p>
+
+      <h3>2.1 目标与根因</h3>
+      <div class="grid-2">
+        <div class="mini">
+          <h4>效率目标</h4>
+          <p>月度利润 / 管理报表：现状约 <strong>每月 18 号</strong> 出具 → 逐步提前到 <strong>每月 10 号</strong>。</p>
+        </div>
+        <div class="mini">
+          <h4>财务需先提供的清单</h4>
+          <p>「无法在每月 10 号前提交、从而影响关账的事项清单」——协调数据方提前给数；实在给不出则用<strong>预估数据</strong>先出一份。</p>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>#</th><th>根因</th><th>主要表现</th><th>技术方案</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>数据收集工作量大</td>
+            <td>多账户 / 多系统人工拉取</td>
+            <td><strong>RPA</strong></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>数据计算处理成管理报表难</td>
+            <td>大量本地处理；人工核算；二次清洗；复杂规则（科学分摊、加权成本、费用归因）；口径统一与业务流程规范；OA 等系统完善；人工预估 → 系统自动预估；资金流水与业务对账等</td>
+            <td><strong>云数据仓库</strong>（企业云数仓 / 数据分层）</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>2.2 公共底座（各导出线共用）</h3>
+      <div class="path">
+        <span class="step">采集（RPA / API / 半人工）</span>
+        <span class="arrow">→</span>
+        <span class="step">云数据集 / 云仓 ODS（允许重复）</span>
+        <span class="arrow">→</span>
+        <span class="step">清洗去重 DWD + DIM</span>
+        <span class="arrow">→</span>
+        <span class="step">DWS / 天结果表 / 管理报表</span>
+      </div>
+      <ul>
+        <li>明细层增加品牌、币种等后续计算必要维度。</li>
+        <li>建立管理报表所需<strong>公共维度表（DIM）</strong>：通过金蝶 API、钉钉 API、聚水潭 API、领猫 API 定时集成至云仓，按管理口径自动计算。</li>
+        <li>无更好 API 时：本地机房台式机安装 RPA，将人工步骤改为定时自动执行，结果自动入云数据集（如资金账单：每天凌晨，允许重复）。</li>
+      </ul>
+
+      <h3>2.3 数据导出类子方案</h3>
+      <table>
+        <thead>
+          <tr><th>子项</th><th>前三个月</th><th>半年度</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>资金账单</strong><br>（200+ 账户人工拉取）</td>
+            <td>评估出纳实际操作步骤；若无更好 API → 机房台式机 + RPA 定时 → 云数据集；Python 合并清洗：ODS→DWD，挂 DIM</td>
+            <td>与公共 DIM / 清分等能力深化（细节待预算与选型补充后展开）</td>
+          </tr>
+          <tr>
+            <td><strong>费用审批单</strong></td>
+            <td>钉钉 API 集成清洗输出 ODS→DWD；改造审批流前：业务人工准确选择归属等信息，财务严格审核；解决费用归属问题</td>
+            <td>评估是否采用<strong>自研 + 外采资金清分平台</strong>（自动生成凭证、资金清分）</td>
+          </tr>
+          <tr>
+            <td><strong>销售 + 库存</strong></td>
+            <td>半人工提效：RPA + API + 企业云数仓</td>
+            <td>跨境进销存数据打通；跨境平台 API 定时入仓；ODS→DWD→DWS 输出天表</td>
+          </tr>
+          <tr>
+            <td><strong>店铺账单</strong></td>
+            <td>RPA 提效</td>
+            <td>API 自动进入企业云数仓</td>
+          </tr>
+          <tr>
+            <td><strong>资金结余</strong></td>
+            <td>评估是否需要自动化；不影响报表产出则仍按现有人工方式（口述「泗洪人工」，含义待确认）</td>
+            <td>评估是否外采资金清分平台</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>2.4 月度报表类子方案</h3>
+      <table>
+        <thead>
+          <tr><th>子项</th><th>前三个月</th><th>半年度</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>营业额</strong></td>
+            <td>已接通平台：经数据中台做成<strong>天结果表</strong></td>
+            <td>打通所有平台销售额数据，系统化输出天结果表</td>
+          </tr>
+          <tr>
+            <td><strong>预估报表</strong></td>
+            <td colspan="2">评估当前预估规则科学性 → 与财务确认后 → 大数据计算定时输出预估结果表</td>
+          </tr>
+          <tr>
+            <td><strong>费用 / 资金核对</strong></td>
+            <td>提升效率</td>
+            <td>自研系统 + 完善现有钉钉 OA + 规范制度</td>
+          </tr>
+          <tr>
+            <td><strong>货值</strong></td>
+            <td>—</td>
+            <td>完善供应链数据可靠性：采购订单流水入中台；供应商基础信息；仓库规则名称与逻辑仓库层级；在仓库存天级及快照；在途（采购未入仓在途、跨境在途）；SKU 天级成本单价；头程按报价与交通方式预估并分摊至 SKU</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>2.5 与现有财务流程衔接 &amp; 结果准确性</h3>
+      <ul>
+        <li><strong>衔接：</strong>前三月不改主流程；数据侧提速后仍按财务既有关账与出表节奏对接；阻塞项用「提前给数 / 预估出表」机制兜底。</li>
+        <li><strong>验准（已明确的手段）：</strong>费用归属阶段靠业务准确选择 + 财务严格审核；预估规则需与财务确认科学性后再系统化；云仓侧 ODS→DWD 清洗去重。更细的对账抽样、实数回冲规则等<strong>尚未告知，不自行假设</strong>。</li>
+      </ul>
+
+      <h3>2.6 「18 号 → 10 号」可行性判断（基于已给信息）</h3>
+      <div class="callout">
+        <p style="margin:0 0 8px"><strong>判断：</strong>目标<strong>有实现路径</strong>，但是<strong>条件型可行</strong>——取决于阻塞清单与预估机制能否落地，以及收集/计算两侧提速是否到位。本文不编造提前天数承诺。</p>
+        <ul style="margin-bottom:0">
+          <li><strong>路径：</strong>RPA/API 压缩收集日历天数 + 云仓固化计算压缩本地加工 + 预估子方案支持 10 号前先出表 + 费用归属/口径规范减少返工。</li>
+          <li><strong>主要前提（已口述）：</strong>财务提供 10 号前关账阻塞清单；给不出的数据允许预估；前三月主流程可维持；运营协助 API/系统盘点无覆盖缺口或有获取方案。</li>
+          <li><strong>尚缺前提（未告知）：</strong>阻塞清单正文、预估与实数切换规则、出表日分阶段里程碑、关键供应商/平台数据最晚可达日。见文末。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="block" id="s3">
+      <h2><span class="sec-num">3</span>技术方案和现有 IT 资产的处理</h2>
+      <p class="sec-desc">原则：暂不建设完整大型数据平台，但结构要可扩展、可维护。</p>
+
+      <h3>3.1 已确认的技术取向</h3>
+      <ul>
+        <li><strong>采集：</strong>RPA（机房台式机）+ 开放平台 / 业务系统 API + 过渡期半人工。</li>
+        <li><strong>存储与计算：</strong>企业云数仓 / 数据中台分层（ODS → DWD → DWS / 天结果表）。</li>
+        <li><strong>对外报告云资源表述：</strong>阿里云 <strong>ECS 服务器</strong>、<strong>大数据计算引擎</strong>、<strong>RDS 数据库</strong>及配套云服务（报告<strong>不出现</strong>内部采购产品商品名）。</li>
+        <li><strong>展示层：</strong>优先核实现有帆软 BI 合同；若公司未购买或不可用，再按月采购 BI（可选 Quick BI）。</li>
+        <li><strong>半年可选平台化：</strong>资金清分平台（自研 + 外采评估）、跨境平台 API、自研核对能力与钉钉 OA 完善。</li>
+      </ul>
+
+      <h3>3.2 资产盘点机制（已定协作，清单正文未齐）</h3>
+      <table>
+        <thead>
+          <tr><th>协作方</th><th>产出</th><th>目的</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>运营</td>
+            <td>《开放平台 API 清单》；《业务在用系统账号密码 / 管理员清单》</td>
+            <td>盘点 IT 已掌握 API/系统是否覆盖财务报表与公司经营支撑；缺口则制定获取方案。现状：电商平台 API 密钥/账号密码部分由运营管理。</td>
+          </tr>
+          <tr>
+            <td>财务</td>
+            <td>10 号前关账阻塞事项清单</td>
+            <td>识别业务对接滞后项，推动提前给数或预估出表。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout warn">
+        <strong>本节关键缺口：</strong>「瀚章介绍的现状」材料尚未提供，因此<strong>不能</strong>在本文中擅自判断「哪些程序/库/报表/系统继续用、调整重构、或必须新增」。待您补充瀚章现状与资产清单后补写 3.3。
+      </div>
+
+      <h3>3.3 现有资产处置结论（待补）</h3>
+      <table>
+        <thead>
+          <tr><th>类别</th><th>续用</th><th>调整 / 重构</th><th>新增</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>程序 / 脚本</td>
+            <td colspan="3" style="color:var(--warn)">待瀚章现状与资产清单补充后填写</td>
+          </tr>
+          <tr>
+            <td>数据库 / 云仓</td>
+            <td colspan="3" style="color:var(--warn)">待补充（报告侧已约定表述为 ECS / 大数据计算引擎 / RDS）</td>
+          </tr>
+          <tr>
+            <td>报表 / BI</td>
+            <td colspan="3" style="color:var(--warn)">待帆软合同确认；若未购则新增按月 BI</td>
+          </tr>
+          <tr>
+            <td>业务系统</td>
+            <td colspan="3" style="color:var(--warn)">待运营系统管理员清单与覆盖缺口评估</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 4 -->
+    <section class="block" id="s4">
+      <h2><span class="sec-num">4</span>人员分工和资源需求</h2>
+      <p class="sec-desc">按 1+1 配置；跨部门配合已部分明确。</p>
+
+      <table>
+        <thead>
+          <tr><th>角色</th><th>已确认</th><th>尚未确认（不假设）</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>IT 负责人（本人）</td>
+            <td>1+1 中的「1」；负责总体规划与推进（方向已定）</td>
+            <td>与第二人的具体模块分工表、周投入比例等</td>
+          </tr>
+          <tr>
+            <td>第二名工程师</td>
+            <td><strong>招聘 1 名综合技术能力强的全栈开发工程师</strong></td>
+            <td>JD 细则、到岗时间、薪资带宽、试用期目标</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>跨部门配合（已明确）</h3>
+      <table>
+        <thead>
+          <tr><th>部门</th><th>配合事项</th><th>产出</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>运营</td><td>协助盘点 API 与系统凭证</td><td>开放平台 API 清单；业务在用系统账号密码/管理员清单</td></tr>
+          <tr><td>财务</td><td>关账阻塞盘点；预估规则科学性确认；审批归属严审</td><td>阻塞清单；规则确认；审核质量</td></tr>
+          <tr><td>业务</td><td>费用审批准确选择归属等信息（前三月、改流前）</td><td>规范填写的审批单</td></tr>
+          <tr><td>供应链</td><td>货值相关主数据与规则（半年度）</td><td>采购/供应商/仓/在库在途/成本/头程等输入</td></tr>
+        </tbody>
+      </table>
+
+      <h3>可能的外部支持（已点名方向，细节待定）</h3>
+      <ul>
+        <li>资金清分平台外采（半年度评估）</li>
+        <li>RPA 工具与机房台式机实施（若走 RPA 路径）</li>
+        <li>云服务采购（阿里云 ECS / 大数据计算引擎 / RDS 等）</li>
+        <li>BI：帆软合同或按月 Quick BI</li>
+      </ul>
+    </section>
+
+    <!-- 5 -->
+    <section class="block" id="s5">
+      <h2><span class="sec-num">5</span>半年预算测算</h2>
+      <p class="sec-desc">区分一次性与持续性；不确定项只给已核实刊例或标注待补，不编造总额。</p>
+
+      <h3>5.1 科目结构</h3>
+      <table>
+        <thead>
+          <tr><th>科目</th><th>类型</th><th>已能量化</th><th>说明 / 前提</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>阿里云 ECS、大数据计算引擎、RDS 等</td>
+            <td>持续性（为主）</td>
+            <td style="color:var(--warn)">待补</td>
+            <td>报告如此表述。具体规格与月账单未提供，不估算总额。</td>
+          </tr>
+          <tr>
+            <td>BI 分析工具</td>
+            <td>持续性</td>
+            <td>见下表</td>
+            <td>先核帆软是否已购；未购则按月购 BI。</td>
+          </tr>
+          <tr>
+            <td>RPA 软件授权</td>
+            <td>一次 / 持续视产品</td>
+            <td style="color:var(--warn)">待补</td>
+            <td>工具品牌与授权模式未定。</td>
+          </tr>
+          <tr>
+            <td>机房台式机（RPA 跑数）</td>
+            <td>一次性</td>
+            <td style="color:var(--warn)">待补</td>
+            <td>台数与配置未定。</td>
+          </tr>
+          <tr>
+            <td>资金清分平台外采</td>
+            <td>一次 + 可能年费</td>
+            <td style="color:var(--warn)">待补</td>
+            <td>半年度评估项，产品短名单未定。</td>
+          </tr>
+          <tr>
+            <td>人力（全栈招聘）</td>
+            <td>持续性</td>
+            <td style="color:var(--warn)">待补</td>
+            <td>薪资带宽未告知。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>5.2 BI：基础方案 vs 可选方案（Quick BI 刊例，中国站）</h3>
+      <p>依据阿里云官方计费文档刊例；活动价以购买页为准。做报表与看报表均占用用户数。</p>
+      <table>
+        <thead>
+          <tr><th>方案</th><th>规格</th><th>月费量级</th><th>半年占位</th><th>利弊</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>基础建议</strong>（若需新购 BI）</td>
+            <td>高级版 10 用户</td>
+            <td><strong>约 750 元/月</strong></td>
+            <td>约 <strong>4,500 元</strong></td>
+            <td>适合 IT+财务+少数业务看数；半年度过渡够用。协同用户有限。</td>
+          </tr>
+          <tr>
+            <td>可选扩展</td>
+            <td>高级版 20 用户</td>
+            <td>约 1,500 元/月（年费÷12）</td>
+            <td>约 9,000 元</td>
+            <td>经营融合后更多业务方可看报表；费用翻倍。</td>
+          </tr>
+          <tr>
+            <td>可选（一般不默认）</td>
+            <td>专业版 50 用户</td>
+            <td>约 10,000 元/月</td>
+            <td>约 60,000 元</td>
+            <td>能力更全、成本显著升高；半年度除非有强需求，否则不默认。</td>
+          </tr>
+          <tr>
+            <td>沿用帆软</td>
+            <td>以合同为准</td>
+            <td>可能为 0（已购）</td>
+            <td>待合同</td>
+            <td>无新增授权成本；需确认是否属现公司、是否仍在有效期与席位是否够用。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout warn">
+        <strong>半年总预算：</strong>因云资源账单、RPA、硬件、清分平台、人力薪资均未提供，<strong>本文不给出拼凑的「合计 XX 万」</strong>。待您补充后可出基础方案 / 可选方案对照表。
+      </div>
+    </section>
+
+    <!-- TODO -->
+    <section class="block" id="todo">
+      <h2><span class="sec-num">?</span>待您补充（未告知，故未自行假设）</h2>
+      <p class="sec-desc">请按编号回复；补齐后可更新网页版定稿。</p>
+
+      <div class="todo-item">
+        <strong>T1. 规划周期</strong>
+        <span>半年度具体起止月份或财年标签（例如 2026.11–2027.04）？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T2. 瀚章介绍的现状</strong>
+        <span>请提供纪要/材料，用于第 3 章「续用 / 调整 / 新增」结论。</span>
+      </div>
+      <div class="todo-item">
+        <strong>T3. 财务阻塞清单正文</strong>
+        <span>「无法在 10 号前提交、影响关账的事项」清单内容。</span>
+      </div>
+      <div class="todo-item">
+        <strong>T4. 预估与实数机制</strong>
+        <span>预估出表后如何回冲实数、谁签字确认、是否两套报表并行？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T5. 「泗洪人工」含义</strong>
+        <span>资金结余「依然泗洪人工」是负责人名、地点，还是「使用人工」笔误？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T6. 领猫定位</strong>
+        <span>领猫与聚水潭、金蝶等系统边界与现网角色？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T7. 1+1 分工细则</strong>
+        <span>负责人与全栈工程师各自负责哪些子项（资金账单 RPA、钉钉费用、营业额天表、货值等）？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T8. 招聘</strong>
+        <span>全栈 JD 要点、期望到岗时间、薪资带宽是否写入对外预算？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T9. 帆软合同</strong>
+        <span>现公司是否已购买帆软 BI？有效期、席位数、是否可继续用于管理报表？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T10. 云资源账单 / 规格</strong>
+        <span>ECS、大数据计算引擎、RDS 的规格或近月账单，用于半年费用估算。</span>
+      </div>
+      <div class="todo-item">
+        <strong>T11. RPA</strong>
+        <span>倾向的 RPA 产品、台式机台数与预算上限？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T12. 资金清分平台</strong>
+        <span>是否已有外采候选短名单或预算区间？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T13. 量化里程碑</strong>
+        <span>例如：第几个月出表日从 18→15→12→10；前三月人效 KPI？</span>
+      </div>
+      <div class="todo-item">
+        <strong>T14. 结果准确性验收标准</strong>
+        <span>与财务对账的允许误差、抽样规则、签字流程等。</span>
+      </div>
+      <div class="todo-item">
+        <strong>T15. 「已接通平台」名单</strong>
+        <span>营业额「已接通」具体含哪些平台，半年度「所有平台」范围？</span>
+      </div>
+    </section>
+
+    <footer>
+      文件位置：cemoy-it-h2-plan/docs/IT半年度工作规划-网页版.html · 仅含已确认口述与公开刊例 · 待补充项见上
+    </footer>
+  </div>
+</body>
+</html>

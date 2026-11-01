@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IT 半年度工作规划</title>
+  <style>
+    :root {
+      --bg: #f3f1ec;
+      --paper: #fffdf9;
+      --ink: #15202b;
+      --muted: #5a6472;
+      --line: #d5d0c6;
+      --accent: #0b4f45;
+      --accent-2: #1a6b5c;
+      --soft: #e7f2ef;
+      --soft-2: #eef1f6;
+      --card: #ffffff;
+      --amber: #9a5b16;
+      --amber-bg: #f7f0e6;
+      --shadow: 0 10px 30px rgba(21, 32, 43, 0.06);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, #e9efe9 0, transparent 280px),
+        var(--bg);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 36px 18px 72px; }
+    .hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 34px 34px 26px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .14em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1.18;
+      letter-spacing: -.02em;
+    }
+    .lead { margin: 0; color: var(--muted); max-width: 48em; }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 10px 20px;
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 13px; color: var(--muted);
+    }
+    .meta b { color: var(--ink); }
+    nav.toc {
+      position: sticky; top: 0; z-index: 30;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(243,241,236,.92);
+      backdrop-filter: blur(8px);
+    }
+    nav.toc a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    nav.toc a:hover { background: #fff; border-color: var(--line); }
+    section.block {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+    h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .num {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--soft); color: var(--accent);
+      font-size: 13px; font-weight: 800;
+      flex: 0 0 auto;
+    }
+    .sec-desc { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+    h3 { margin: 22px 0 10px; font-size: 16px; }
+    h4 { margin: 14px 0 8px; font-size: 14.5px; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 12px; padding-left: 1.2em; }
+    li { margin: 4px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin: 8px 0 14px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px 11px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #f2efe8; font-weight: 650; }
+    tr:nth-child(even) td { background: #fafaf7; }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent);
+    }
+    .tag.gray { background: var(--soft-2); color: #334155; }
+    .note {
+      border-left: 3px solid var(--accent);
+      background: var(--soft);
+      padding: 12px 14px;
+      border-radius: 0 10px 10px 0;
+      margin: 12px 0;
+      font-size: 14px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .mini {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: var(--paper);
+    }
+    .mini h4 { margin: 0 0 6px; }
+    .mini p { margin: 0; color: var(--muted); font-size: 13.5px; }
+    .diagram {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fcfbf8, #f7f5f0);
+      padding: 16px;
+      margin: 12px 0 18px;
+      overflow-x: auto;
+    }
+    .diagram .cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0 0 10px;
+      font-weight: 600;
+      letter-spacing: .04em;
+    }
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .flow .box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 650;
+      min-width: 110px;
+      text-align: center;
+      box-shadow: 0 1px 0 rgba(0,0,0,.02);
+    }
+    .flow .box.em {
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+      background: var(--soft);
+      color: var(--accent);
+    }
+    .flow .arr { color: var(--muted); font-weight: 700; }
+    .swim {
+      display: grid;
+      gap: 10px;
+    }
+    .lane {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+    .lane .label {
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px;
+      text-align: center;
+    }
+    .lane .content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .chip {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+    }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .phase {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .phase .hd {
+      padding: 10px 14px;
+      font-weight: 750;
+      font-size: 14px;
+      background: var(--soft);
+      color: var(--accent);
+      border-bottom: 1px solid var(--line);
+    }
+    .phase .bd { padding: 12px 14px; font-size: 13.5px; }
+    .phase.later .hd { background: var(--soft-2); color: #1e293b; }
+    .dep-list { list-style: none; padding: 0; margin: 0; }
+    .dep-list li {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--line);
+      margin: 0;
+    }
+    .dep-list li:last-child { border-bottom: 0; }
+    .dep-list .ord {
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      background: var(--soft);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px;
+    }
+    .dep-list .ord.p2 { background: #e8eef8; color: #1e3a5f; }
+    .dep-list .ord.p3 { background: var(--amber-bg); color: var(--amber); }
+    .money { font-variant-numeric: tabular-nums; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 18px;
+    }
+    @media (max-width: 760px) {
+      .grid-2, .timeline, .lane { grid-template-columns: 1fr; }
+      .hero, section.block { padding: 20px 16px; }
+      .lane .label { min-height: 42px; }
+    }
+    @media print {
+      nav.toc { display: none; }
+      section.block, .hero { break-inside: avoid; box-shadow: none; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">CEMOY · IT DEPARTMENT</div>
+      <h1>IT 半年度工作规划</h1>
+      <p class="lead">
+        以财务自动化与经营管理数据能力建设为主线：前三个月在保持现有财务主流程不变的前提下提升人效；
+        半年度形成系统化能力，打通管理报表与业务经营，支撑月度管理报表出具节奏由约每月 18 号逐步提前至每月 10 号。
+      </p>
+      <div class="meta">
+        <div><b>文档性质</b> 正式方案报告</div>
+        <div><b>编制</b> IT 部门负责人</div>
+        <div><b>团队配置</b> 1+1（负责人 + 全栈工程师招聘）</div>
+        <div><b>核心目标</b> 管理报表 18 号 → 10 号</div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <a href="#s1">1. 半年规划</a>
+      <a href="#s2">2. 财务自动化</a>
+      <a href="#s3">3. 技术方案与资产</a>
+      <a href="#s4">4. 人员与资源</a>
+      <a href="#s5">5. 预算测算</a>
+      <a href="#s6">6. 主项目推进计划</a>
+    </nav>
+
+    <!-- 1 -->
+    <section class="block" id="s1">
+      <h2><span class="num">1</span>半年的工作规划</h2>
+      <p class="sec-desc">分阶段说明重点工作、解决问题、交付成果，以及优先级安排逻辑。</p>
+
+      <div class="timeline">
+        <div class="phase">
+          <div class="hd">前三个月 · 人效提升</div>
+          <div class="bd">
+            <p><b>主流程：</b>保持现有财务主流程不变。</p>
+            <p><b>重点：</b>用 RPA、半人工、已接通 API，把数据收集与初加工效率提上来；计算侧同步迁入云服务器 / 云数据库 / 大数据计算引擎分层体系。</p>
+            <p style="margin:0"><b>交付：</b>关键导出链路人效提升；已接通平台营业额天结果表；费用审批等完成 ODS→DWD；公共维度起步建设。</p>
+          </div>
+        </div>
+        <div class="phase later">
+          <div class="hd">半年度 · 系统化方案</div>
+          <div class="bd">
+            <p><b>主流程：</b>关键节点去人工依赖，形成可运行的系统能力。</p>
+            <p><b>重点：</b>系统自动解决关键人工节点；管理报表与业务数据融合；跨境进销存与货值供应链可靠性完善；评估资金清分平台。</p>
+            <p style="margin:0"><b>交付：</b>经营上财务与业务融合的管理模式；更多链路 API 自动入仓；货值与全平台营业额系统化输出。</p>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>阶段</th>
+            <th>解决什么问题</th>
+            <th>预期成果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag">M1–M3</span></td>
+            <td>数据收集工作量大；本地库与本地 Excel 加工导致效率低、数据留存与协同差；人工核算与二次清洗耗时长</td>
+            <td>收集侧自动化/半自动化；云端分层跑通；出表准备时间缩短，主流程不被打断</td>
+          </tr>
+          <tr>
+            <td><span class="tag gray">M1–M6</span></td>
+            <td>关键节点依赖人工；财务与业务是否有效融合尚不清晰；跨境与货值等经营闭环不完整</td>
+            <td>关键自动化；管理报表与业务一体；跨境进销存与货值等系统化能力落地</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>优先级安排</h3>
+      <ol>
+        <li><b>先保出表节奏与人效，主流程不动</b> — 避免改革初期打断财务关账与管理报表。</li>
+        <li><b>收集用 RPA、计算用云仓并行</b> — 对应「18 号出表」的两大根因。</li>
+        <li><b>费用归属先制度与人工严控，平台化半年评估</b> — 审批流改造前保证填报与审核质量，再决定资金清分平台。</li>
+        <li><b>跨境进销存、全平台营业额、货值供应链放半年度</b> — 依赖主数据与多方协同，适合系统化阶段。</li>
+      </ol>
+    </section>
+
+    <!-- 2 -->
+    <section class="block" id="s2">
+      <h2><span class="num">2</span>财务自动化的落地方案</h2>
+      <p class="sec-desc">说明如何推进，涉及哪些数据源、数据处理与核算环节，如何与现有财务流程衔接，以及如何验证结果准确性；并给出分项落地与货值专项。</p>
+
+      <div class="grid-2">
+        <div class="mini">
+          <h4>效率目标</h4>
+          <p>月度管理报表 / 利润报表：现状约 <b>每月 18 号</b> 出具 → 逐步提前到 <b>每月 10 号</b>。</p>
+        </div>
+        <div class="mini">
+          <h4>财务协同输入</h4>
+          <p>提供「无法在每月 10 号前提交、影响关账的事项清单」。能提前的协调数据方提前给数；实在给不出的，采用预估数据先出一份。</p>
+        </div>
+      </div>
+
+      <h3>2.1 如何推进</h3>
+      <p>按「双路径、两阶段、先并行不改主流程」推进：</p>
+      <ol>
+        <li><b>双路径并行：</b>数据收集侧用 <b>Codex 实现爬虫/RPA + 影刀 10 账号持续运行</b>（无更好 API 时）把人工拉取改为定时自动执行，并按效果补充完善；计算核算侧用 <b>云服务器 + 云数据库 + 大数据计算引擎</b>，把本地处理、人工二次清洗与复杂规则计算迁到云仓分层作业。</li>
+        <li><b>前三个月：</b>财务主流程不变，只替换「取数慢、算数慢」的环节；先打通资金账单、店铺账单、费用审批、已接通平台营业额等可快速见效链路。</li>
+        <li><b>半年度：</b>关键节点去人工，补齐跨境进销存、全平台营业额、货值供应链，并评估资金清分平台，形成财务与业务融合的系统化能力。</li>
+        <li><b>制度与系统同步：</b>费用归属在改造审批流前，先要求业务准确选择、财务严格审核；预估规则先与财务确认科学性，再固化为定时计算任务。</li>
+        <li><b>盘点驱动补缺：</b>运营输出 API/系统清单，财务输出关账阻塞清单；发现覆盖缺口则制定获取方案（申请 API、移交权限、协调提前给数或预估）。</li>
+      </ol>
+
+      <div class="diagram">
+        <p class="cap">图 1 · 财务自动化推进总览</p>
+        <div class="swim">
+          <div class="lane">
+            <div class="label">推进步骤</div>
+            <div class="content">
+              <span class="chip">盘点阻塞与 API</span>
+              <span class="arr">→</span>
+              <span class="chip">云底座就绪</span>
+              <span class="arr">→</span>
+              <span class="chip">RPA/API 采集</span>
+              <span class="arr">→</span>
+              <span class="chip">清洗核算入仓</span>
+              <span class="arr">→</span>
+              <span class="chip">结果表对接财务</span>
+              <span class="arr">→</span>
+              <span class="chip">验准后固化</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>2.2 涉及哪些数据源</h3>
+      <table>
+        <thead>
+          <tr><th>数据源</th><th>获取方式</th><th>主要用途</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>资金账户账单</b>（200+ 账户）</td>
+            <td>优先评估 API；否则出纳步骤由 Codex 爬虫/RPA + 影刀定时拉取入云</td>
+            <td>资金流水、与业务/费用核对、管理报表资金侧输入</td>
+          </tr>
+          <tr>
+            <td><b>店铺账单</b></td>
+            <td>前三月 Codex/影刀 RPA；半年度 API 自动入仓</td>
+            <td>平台侧资金与费用明细、对账与营业额勾稽</td>
+          </tr>
+          <tr>
+            <td><b>钉钉费用审批单</b></td>
+            <td>钉钉 API 定时集成</td>
+            <td>费用明细、费用归属、费用与资金核对</td>
+          </tr>
+          <tr>
+            <td><b>销售与库存</b>（含后续跨境平台）</td>
+            <td>RPA + API + 半人工；半年度跨境 API 定时接入</td>
+            <td>营业额、库存与进销存、货值数量侧</td>
+          </tr>
+          <tr>
+            <td><b>金蝶</b></td>
+            <td>金蝶 API 定时集成</td>
+            <td>公共维度、财务主数据与核算相关基础信息</td>
+          </tr>
+          <tr>
+            <td><b>聚水潭</b></td>
+            <td>聚水潭 API 定时集成</td>
+            <td>经营/进销存相关业务数据与维度</td>
+          </tr>
+          <tr>
+            <td><b>领猫</b>（现行采购系统）</td>
+            <td>领猫 API 定时集成</td>
+            <td>采购订单流水、供应商主数据；货值上游事实</td>
+          </tr>
+          <tr>
+            <td><b>资金结余</b></td>
+            <td>前三月评估；不影响出表则继续人工提供</td>
+            <td>结余核对；半年度纳入清分平台评估范围</td>
+          </tr>
+          <tr>
+            <td><b>电商等开放平台</b></td>
+            <td>已有密钥/账号由运营协助盘点；缺口另制定获取方案</td>
+            <td>覆盖财务报表与公司经营所需的平台销售、账单等</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>2.3 数据处理和核算环节</h3>
+      <p>端到端按「采集 → 入仓 → 清洗关联 → 规则核算 → 结果表 → 管理报表」运转：</p>
+      <table>
+        <thead>
+          <tr><th>环节</th><th>做什么</th><th>产出</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1. 采集</b></td>
+            <td>RPA / API / 半人工按日或定时取数；资金账单允许重复入库</td>
+            <td>原始文件或接口报文落入云端</td>
+          </tr>
+          <tr>
+            <td><b>2. ODS 原始层</b></td>
+            <td>原样落库，保留溯源；不在此层做业务口径改写</td>
+            <td>可追溯的原始事实表</td>
+          </tr>
+          <tr>
+            <td><b>3. 清洗去重（DWD）</b></td>
+            <td>Python/SQL 合并、清洗、去重；字段标准化；挂接品牌、币种等维度</td>
+            <td>明细层事实表（一笔业务一条清晰记录）</td>
+          </tr>
+          <tr>
+            <td><b>4. 公共维度（DIM）</b></td>
+            <td>金蝶、钉钉、聚水潭、领猫等按管理口径自动计算公共维度表</td>
+            <td>品牌、币种、仓库、供应商等统一维表</td>
+          </tr>
+          <tr>
+            <td><b>5. 核算与规则计算</b></td>
+            <td>在云仓固化管理核算规则：费用归因、科学分摊、加权成本、头程预估分摊至 SKU、预估报表规则等；减少本地 Excel 人工核算</td>
+            <td>可复算、可审计的中间核算结果</td>
+          </tr>
+          <tr>
+            <td><b>6. DWS / 天结果表</b></td>
+            <td>汇总输出营业额天表、预估结果表、货值相关结果、核对用明细等</td>
+            <td>直接服务月度管理报表与日常经营看数</td>
+          </tr>
+          <tr>
+            <td><b>7. 对账与预估闭环</b></td>
+            <td>资金流水与业务对账；费用与资金核对；10 号前对阻塞项用预估补齐，实数到达后按规则回写/替换</td>
+            <td>可按期出表，同时保留实数校正路径</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="diagram">
+        <p class="cap">图 2 · 数据处理与核算环节</p>
+        <div class="flow">
+          <div class="box">采集<br><span style="font-weight:500;font-size:12px;color:var(--muted)">RPA / API</span></div>
+          <div class="arr">→</div>
+          <div class="box em">ODS</div>
+          <div class="arr">→</div>
+          <div class="box em">DWD 清洗</div>
+          <div class="arr">→</div>
+          <div class="box">DIM 关联</div>
+          <div class="arr">→</div>
+          <div class="box em">规则核算</div>
+          <div class="arr">→</div>
+          <div class="box em">天结果表</div>
+          <div class="arr">→</div>
+          <div class="box">管理报表</div>
+        </div>
+      </div>
+      <p>计算侧重点从本地迁出的工作包括：二次加工清洗、人工核算、复杂分摊与加权成本、费用归因、口径统一、系统自动预估、资金流水与业务对账。口径统一同时要求业务流程规范，以及钉钉 OA 等系统对规范数据的支撑逐步完善。</p>
+
+      <h3>2.4 如何与现有财务流程衔接</h3>
+      <div class="diagram">
+        <p class="cap">图 3 · 与现有财务关账 / 出表流程衔接</p>
+        <div class="swim">
+          <div class="lane">
+            <div class="label">财务侧</div>
+            <div class="content">
+              <span class="chip">既有关账节奏</span>
+              <span class="chip">管理报表编制</span>
+              <span class="chip">归属审核 / 规则确认</span>
+              <span class="chip">阻塞清单维护</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">IT 侧</div>
+            <div class="content">
+              <span class="chip">日调度取数入仓</span>
+              <span class="chip">清洗核算出结果表</span>
+              <span class="chip">预估补齐阻塞项</span>
+              <span class="chip">按节点向财务供数</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol>
+        <li><b>前三个月不改财务主流程：</b>关账职责、报表责任人、审批链路仍在财务；IT 只把「等人送数 / 本地慢算」改成「云端按时就绪」。</li>
+        <li><b>按财务节点供数：</b>以财务月度关账与管理报表编制节点为对齐点；日常以天结果表持续刷新，月度取数窗口前保证所需明细与汇总已产出。</li>
+        <li><b>阻塞项专项衔接：</b>财务列出无法在 10 号前提交的事项；IT/业务协调数据提供方提前给数；仍无法提供的，按约定预估规则先出表，保证编制工作可启动。</li>
+        <li><b>费用链路衔接：</b>改造审批流前，业务在钉钉准确选择归属等信息，财务严格审核；IT 同步落 ODS–DWD，审核后的数据进入核算与核对，避免「系统有数但归属不可用」。</li>
+        <li><b>预估报表衔接：</b>现行预估规则先由财务确认科学性，再由 IT 做成定时预估结果表，嵌入现有「先预估、后实数」的管理习惯，而不是另起一套口径。</li>
+        <li><b>输出形态衔接：</b>结果表可供财务沿用既有报表结构取数；BI（帆软或 Quick BI）用于查看与核对，不强制财务立刻更换编制工具。</li>
+      </ol>
+
+      <h3>2.5 如何验证结果的准确性</h3>
+      <table>
+        <thead>
+          <tr><th>校验类型</th><th>做法</th><th>责任方</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>采集完整性</b></td>
+            <td>账户/店铺/任务是否跑成功；条数、金额合计与源端抽查比对；RPA 失败告警重跑</td>
+            <td>IT 主责，出纳/运营协助抽查</td>
+          </tr>
+          <tr>
+            <td><b>清洗去重正确性</b></td>
+            <td>ODS 与 DWD 笔数、金额勾稽；重复键是否按规则合并；异常明细清单复核</td>
+            <td>IT</td>
+          </tr>
+          <tr>
+            <td><b>费用归属准确性</b></td>
+            <td>审批单必选归属信息；财务审核通过后方可进入正式核算口径；抽查归属与业务实际是否一致</td>
+            <td>业务填报 + 财务审核，IT 固化校验规则</td>
+          </tr>
+          <tr>
+            <td><b>核算规则一致性</b></td>
+            <td>分摊、加权成本、费用归因、头程分摊等规则先书面确认再上线；同一输入重跑结果应一致（可复算）</td>
+            <td>财务确认规则，IT 实现与回归</td>
+          </tr>
+          <tr>
+            <td><b>预估科学性</b></td>
+            <td>上线前与财务确认预估规则；上线后对比「预估值 vs 后期实数」，偏差纳入规则迭代</td>
+            <td>财务 + IT</td>
+          </tr>
+          <tr>
+            <td><b>资金与业务对账</b></td>
+            <td>资金流水、店铺账单、费用审批、销售等交叉勾稽；差异清单定位到明细</td>
+            <td>财务主导核对，IT 提供对账结果表</td>
+          </tr>
+          <tr>
+            <td><b>货值勾稽</b></td>
+            <td>采购流水、在库/在途数量、SKU 天成本、头程分摊可串联核对；日快照支持回溯</td>
+            <td>供应链 + 财务抽查，IT 提供链路</td>
+          </tr>
+          <tr>
+            <td><b>平行验证（切换期）</b></td>
+            <td>前三月主流程不变期间，云仓结果与现行手工/本地结果并行对比，差异清零或解释后方可作为正式供数</td>
+            <td>IT 出对比，财务签字确认</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        准确性总原则：<b>源端可追溯（ODS）→ 明细可勾稽（DWD）→ 规则可复算（核算作业）→ 财务可确认（平行对比与审核）</b>。未通过平行验证的结果表，不替代财务正式出表取数。
+      </div>
+
+      <h3>2.6 根因与技术路径（摘要）</h3>
+      <div class="diagram">
+        <p class="cap">图 4 · 18 号出表根因 → 双路径方案</p>
+        <div class="swim">
+          <div class="lane">
+            <div class="label">根因 1</div>
+            <div class="content">
+              <span class="chip">数据收集工作量大</span>
+              <span class="chip">多账户 / 多系统人工拉取</span>
+              <span class="arr">→</span>
+              <span class="chip" style="background:var(--soft);border-color:#b7d5cc;font-weight:700">Codex + 影刀自动化采集</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">根因 2</div>
+            <div class="content">
+              <span class="chip">本地处理 / 人工核算</span>
+              <span class="chip">二次清洗 / 复杂规则</span>
+              <span class="chip">口径·OA·预估·对账</span>
+              <span class="arr">→</span>
+              <span class="chip" style="background:var(--soft);border-color:#b7d5cc;font-weight:700">云数据仓库分层计算</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>「18 号 → 10 号」路径：压缩收集等待时间 + 压缩本地核算时间 + 阻塞项预估先出表。条件包括阻塞清单与预估机制落地、RPA/API 稳定、云仓规则固化并通过平行验证。</p>
+
+      <h3>2.7 公共数据底座</h3>
+      <div class="diagram">
+        <p class="cap">图 2b · 数据采集到管理报表的分层链路</p>
+        <div class="flow">
+          <div class="box">业务系统 / 平台<br><span style="font-weight:500;color:var(--muted);font-size:12px">API · RPA · 半人工</span></div>
+          <div class="arr">→</div>
+          <div class="box em">ODS 原始层<br><span style="font-weight:500;font-size:12px">允许重复 · 日增</span></div>
+          <div class="arr">→</div>
+          <div class="box em">DWD 明细层<br><span style="font-weight:500;font-size:12px">合并清洗去重</span></div>
+          <div class="arr">→</div>
+          <div class="box">DIM 公共维度<br><span style="font-weight:500;font-size:12px">品牌 · 币种等</span></div>
+          <div class="arr">→</div>
+          <div class="box em">DWS / 天结果表<br><span style="font-weight:500;font-size:12px">管理报表输入</span></div>
+        </div>
+      </div>
+      <ul>
+        <li>采集结果统一进入云数据集 / 企业云数仓，不再以本地电脑数据库作为企业正式数据留存方式。</li>
+        <li>明细层挂接品牌、币种等后续计算必要维度。</li>
+        <li>公共维度表通过 <b>金蝶 API、钉钉 API、聚水潭 API、领猫 API</b>（领猫为公司现行采购系统）定时集成，按管理口径自动计算。</li>
+        <li>无可用 API 时：机房台式机部署采集自动化——以 Codex 实现爬虫/RPA 效果并补充完善，影刀 10 账号持续运行定时任务；结果自动入云。资金账单类建议每日凌晨执行，允许重复入库后由仓内清洗去重。</li>
+      </ul>
+
+      <h3>2.8 数据导出类子方案</h3>
+      <table>
+        <thead>
+          <tr><th>子项</th><th>前三个月</th><th>半年度</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>资金账单</b><br>200+ 账户人工拉取</td>
+            <td>评估出纳实际操作步骤；若无更好 API，则机房台式机 + Codex/影刀定时执行 → 云数据集；Python 合并清洗 ODS→DWD，挂 DIM</td>
+            <td>持续稳定运行，并与公共维度、对账能力深化衔接</td>
+          </tr>
+          <tr>
+            <td><b>费用审批单</b></td>
+            <td>钉钉 API 完成集成、清洗与结果表（ODS→DWD）；改造审批流前，业务准确选择归属等信息，财务严格审核，解决费用归属不清</td>
+            <td>评估是否采用自研 + 外采「资金清分平台」（自动生成凭证、资金清分）</td>
+          </tr>
+          <tr>
+            <td><b>销售 + 库存</b></td>
+            <td>半人工提效：Codex/影刀 + API + 企业云数仓</td>
+            <td>跨境进销存数据打通；跨境平台 API 定时入仓；ODS→DWD→DWS 输出天表</td>
+          </tr>
+          <tr>
+            <td><b>店铺账单</b></td>
+            <td>Codex/影刀 RPA 提效</td>
+            <td>API 自动进入企业云数仓</td>
+          </tr>
+          <tr>
+            <td><b>资金结余</b></td>
+            <td>评估是否需要自动化；若不影响报表产出，则继续人工处理</td>
+            <td>评估是否采用外采资金清分平台</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>2.9 月度报表类子方案</h3>
+      <table>
+        <thead>
+          <tr><th>子项</th><th>前三个月</th><th>半年度</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>营业额</b></td>
+            <td>已接通平台经数据中台做成天结果表</td>
+            <td>打通所有平台销售额数据，系统化输出天结果表</td>
+          </tr>
+          <tr>
+            <td><b>预估报表</b></td>
+            <td colspan="2">评估当前预估规则科学性，与财务确认后，以大数据计算方式定时输出预估结果表</td>
+          </tr>
+          <tr>
+            <td><b>费用 / 资金核对</b></td>
+            <td>提升效率</td>
+            <td>自研系统 + 完善现有钉钉 OA + 规范制度</td>
+          </tr>
+          <tr>
+            <td><b>货值</b></td>
+            <td>启动主数据与规则盘点、接口与表结构设计</td>
+            <td>完善供应链环境数据可靠性（详见 2.10）</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>2.10 货值专项（半年度重点）</h3>
+      <p>货值是管理利润与经营分析的关键输入。半年度目标是把供应链相关数据做准、做全、可按天复算，并落到云仓分层结果中。具体建设内容如下：</p>
+
+      <div class="diagram">
+        <p class="cap">图 5 · 货值数据域构成</p>
+        <div class="flow">
+          <div class="box">采购流水</div>
+          <div class="box">供应商主数据</div>
+          <div class="box">仓库层级</div>
+          <div class="box">在仓库存</div>
+          <div class="box">在途库存</div>
+          <div class="box">SKU 天成本</div>
+          <div class="box">头程预估分摊</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>数据域</th><th>建设要求</th><th>作用说明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>采购</b></td>
+            <td>采购订单流水进入数据中台（ODS→DWD），可按单、按 SKU、按时间追溯</td>
+            <td>货值变动的上游事实来源；支撑在途与成本回溯</td>
+          </tr>
+          <tr>
+            <td><b>供应商</b></td>
+            <td>完善供应商基础信息（主数据清洗与补齐，与领猫等采购系统对齐）</td>
+            <td>采购归因、对账与主数据一致性基础</td>
+          </tr>
+          <tr>
+            <td><b>仓库</b></td>
+            <td>统一仓库规则名称；明确逻辑仓库层级划分（物理仓 / 逻辑仓关系可配置）</td>
+            <td>库存口径统一，避免同仓多名、层级混乱导致货值错计</td>
+          </tr>
+          <tr>
+            <td><b>在仓库存</b></td>
+            <td>准确库存数量，按天落库，并保留日快照</td>
+            <td>支持任意日期货值复盘与月结取数</td>
+          </tr>
+          <tr>
+            <td><b>在途库存</b></td>
+            <td>区分两类在途：① 采购途中、尚未入仓的在途数量；② 跨境运输途中的在途数量</td>
+            <td>避免只看在仓库存导致货值低估；跨境链路半年度重点打通</td>
+          </tr>
+          <tr>
+            <td><b>商品成本单价</b></td>
+            <td>输出天级商品成本单价，颗粒度到 SKU</td>
+            <td>货值 = 数量 × 成本单价的计算底座；支撑加权成本等管理规则</td>
+          </tr>
+          <tr>
+            <td><b>头程预估及分摊</b></td>
+            <td>按报价及交通方式做头程费用预估，并分摊至 SKU</td>
+            <td>跨境/物流成本进入货值或费用结构，提升管理报表完整度</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>货值结果表应可按日刷新，并与销售、库存、采购流水可关联核对。领猫作为现行采购系统，是采购流水与供应商主数据的重要来源之一，需纳入定时集成与主数据对齐范围。货值准确性校验纳入 2.5 中的货值勾稽与平行验证。</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="block" id="s3">
+      <h2><span class="num">3</span>技术方案和现有 IT 资产的处理</h2>
+      <p class="sec-desc">暂不建设完整大型数据平台，但底座必须可扩展、可运维，避免短期方案无法持续。</p>
+
+      <h3>3.1 存储与计算改造原则</h3>
+      <div class="note">
+        当前以本地电脑数据库承载企业数据的方式，不利于重要信息与数据的安全留存、备份与协同。半年度明确改为 <b>云服务器 + 云数据库 + 大数据计算引擎</b> 作为正式数据底座；本地机器仅作为 RPA 采集端或临时加工端，不作为企业主数据存档位置。
+      </div>
+
+      <div class="diagram">
+        <p class="cap">图 6 · 目标技术架构（报告表述）</p>
+        <div class="swim">
+          <div class="lane">
+            <div class="label">采集层</div>
+            <div class="content">
+              <span class="chip">开放平台 API</span>
+              <span class="chip">金蝶 / 钉钉 / 聚水潭 / 领猫</span>
+              <span class="chip">Codex 爬虫/RPA + 影刀10账号</span>
+              <span class="chip">机房台式机</span>
+              <span class="chip">半人工过渡</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">云底座</div>
+            <div class="content">
+              <span class="chip">云服务器（ECS）</span>
+              <span class="chip">大数据计算引擎</span>
+              <span class="chip">云数据库（RDS）</span>
+              <span class="chip">调度与数据集成</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">数据层</div>
+            <div class="content">
+              <span class="chip">ODS</span>
+              <span class="chip">DWD + DIM</span>
+              <span class="chip">DWS / 天结果表</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">消费层</div>
+            <div class="content">
+              <span class="chip">管理报表</span>
+              <span class="chip">BI 分析（帆软或按月 BI）</span>
+              <span class="chip">经营核对 / 预估结果</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>3.2 续用 · 调整 · 新增</h3>
+      <table>
+        <thead>
+          <tr><th>类别</th><th>处理策略</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>已申请的电商等开放平台 API / 账号</td>
+            <td><b>续用并盘点补齐</b></td>
+            <td>目前部分由运营管理。运营协助输出《开放平台 API 清单》《业务在用系统账号密码/管理员清单》，评估是否覆盖财报与经营支撑；缺口制定获取方案。</td>
+          </tr>
+          <tr>
+            <td>金蝶、钉钉、聚水潭、领猫</td>
+            <td><b>续用 + 加强 API 集成</b></td>
+            <td>作为公共维度与业务事实的主来源；领猫为现行采购系统，服务货值与采购流水。</td>
+          </tr>
+          <tr>
+            <td>本地电脑数据库 / 大量本地 Excel 加工</td>
+            <td><b>调整下线为主存</b></td>
+            <td>迁移至云服务器、云数据库与大数据计算引擎；本地仅保留采集与临时用途。</td>
+          </tr>
+          <tr>
+            <td>帆软 BI</td>
+            <td><b>优先续用</b></td>
+            <td>核对合同：若现公司已购买且可用则继续使用；否则按月采购 BI（Quick BI 高级版 10 用户）。</td>
+          </tr>
+          <tr>
+            <td>云服务器 / 大数据计算 / 云数据库 / 调度集成</td>
+            <td><b>明确新增（或扩容为正式底座）</b></td>
+            <td>按量最低可运行配置起步，支撑 ODS–DWD–DWS 与日调度。</td>
+          </tr>
+          <tr>
+            <td>RPA / 采集自动化与机房台式机</td>
+            <td><b>新增</b></td>
+            <td>以 Codex 实现爬虫 / RPA 效果并持续补充完善；同步采购影刀 RPA <b>10 个账号</b>持续使用；台式机一次性先采购 1 台。</td>
+          </tr>
+          <tr>
+            <td>资金清分平台</td>
+            <td><b>半年度评估（可能外采）</b></td>
+            <td>用于自动凭证、资金清分等未来能力，不作为前三月必建项。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>3.3 数据结构逐步完善路径</h3>
+      <ol>
+        <li>先落 ODS 原始事实（允许重复），保证「有数可溯」。</li>
+        <li>再建 DWD 明细与公共 DIM，统一品牌、币种、仓库、供应商等口径。</li>
+        <li>输出 DWS / 天结果表服务营业额、预估、货值等管理场景。</li>
+        <li>半年度补齐跨境与供应链深度主题，避免一上来建设过重平台。</li>
+      </ol>
+    </section>
+
+    <!-- 4 -->
+    <section class="block" id="s4">
+      <h2><span class="num">4</span>人员分工和资源需求</h2>
+      <p class="sec-desc">1+1 配置，两人均上手实做，共同对任务结果负责。</p>
+
+      <h3>4.1 岗位与能力要求</h3>
+      <table>
+        <thead>
+          <tr><th>角色</th><th>定位与要求</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>IT 负责人</b></td>
+            <td>总体规划、架构决策、跨部门协调、关键方案设计与验收；同时亲自承担核心开发与联调，对结果负责。</td>
+          </tr>
+          <tr>
+            <td><b>全栈开发工程师</b>（招聘）</td>
+            <td>
+              综合技术能力强的全面人才。须在实际项目中使用过 <b>Java、Python</b>；前端、后端、测试、大数据等领域均可上手。
+              岗位能力近似：<b>Java 后端 + PHP 后端 + 前端 + 测试 + 数据分析师 + 数据开发 + 架构师</b> 的综合体；并需持续接触最新 AI 工具与新技术，能把 AI 辅助研发落到日常交付。
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>4.2 任务分工（均动手、共担结果）</h3>
+      <table>
+        <thead>
+          <tr><th>工作域</th><th>IT 负责人</th><th>全栈工程师</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>云底座与分层模型</td>
+            <td>架构、分层规范、DIM 口径、关键表设计评审</td>
+            <td>环境落地、调度任务、ODS/DWD/DWS 开发与运维</td>
+          </tr>
+          <tr>
+            <td>资金账单 / 店铺账单 RPA</td>
+            <td>出纳步骤评估、方案拍板、异常验收</td>
+            <td>Codex 爬虫/RPA 实现与补充；影刀流程开发、定时跑数、入仓与告警</td>
+          </tr>
+          <tr>
+            <td>费用审批（钉钉）</td>
+            <td>与财务定归属规则与审核机制</td>
+            <td>钉钉 API 集成、清洗、结果表、联调</td>
+          </tr>
+          <tr>
+            <td>金蝶 / 聚水潭 / 领猫集成</td>
+            <td>优先级与口径、供应商/采购主数据策略</td>
+            <td>API 开发、主数据同步、质量校验</td>
+          </tr>
+          <tr>
+            <td>营业额 / 预估 / 核对</td>
+            <td>预估科学性确认（对财务）、管理口径</td>
+            <td>天结果表、预估作业、核对工具与测试</td>
+          </tr>
+          <tr>
+            <td>货值与跨境进销存</td>
+            <td>货值模型、头程分摊规则、里程碑验收</td>
+            <td>采购/库存/在途/成本管道开发与回归测试</td>
+          </tr>
+          <tr>
+            <td>AI 工具与工程效率</td>
+            <td>Codex 等工具规范与关键模块示范</td>
+            <td>日常用 AI 提速编码、测试与文档，保证质量门禁</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>原则：无「只协调不写代码」与「只写代码不背结果」的分工；模块可有主责，但交付物双方共同验收，对财务出表与经营数据结果共同负责。</p>
+
+      <h3>4.3 跨部门配合</h3>
+      <table>
+        <thead>
+          <tr><th>部门</th><th>配合事项</th><th>产出</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>运营</td><td>API 与系统凭证盘点</td><td>《开放平台 API 清单》《业务在用系统账号密码/管理员清单》</td></tr>
+          <tr><td>财务</td><td>关账阻塞盘点；预估规则确认；费用归属严审</td><td>阻塞清单；规则确认；审核质量</td></tr>
+          <tr><td>业务</td><td>费用审批准确选择归属等信息</td><td>规范填写的审批单</td></tr>
+          <tr><td>供应链</td><td>货值相关主数据与业务规则</td><td>仓、在途、成本、头程等业务输入</td></tr>
+        </tbody>
+      </table>
+
+      <h3>4.4 外部支持</h3>
+      <p>半年度视评估结论，可能引入 <b>资金清分平台</b> 外采（自动生成凭证、资金清分等能力）。</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="block" id="s5">
+      <h2><span class="num">5</span>半年预算测算</h2>
+      <p class="sec-desc">云资源按「3 个月约 1 万、半年约 2～3 万」预估；影刀按持续 10 账号年费计入；汇总分「不含人力 / 含人力」两档。汇率按 1 美元 ≈ 7.2 元估算，实际以账单为准。</p>
+
+      <h3>5.1 费用明细</h3>
+      <table class="money">
+        <thead>
+          <tr><th>科目</th><th>口径</th><th>金额（约）</th><th>类型</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>云服务器 + 大数据计算引擎 + 云数据库</td>
+            <td>按量使用预估：约 3 个月 1 万，半年 2～3 万</td>
+            <td><b>半年 2～3 万</b></td>
+            <td>持续性</td>
+          </tr>
+          <tr>
+            <td>Quick BI</td>
+            <td>高级版 10 用户；750 元/月（若帆软已购可用则本项为 0）</td>
+            <td>半年 4,500</td>
+            <td>持续性</td>
+          </tr>
+          <tr>
+            <td>Codex</td>
+            <td>200 美元/月（≈1,440 元/月），需先开通；用于爬虫/RPA 实现与补充开发</td>
+            <td>半年 ≈ 8,640</td>
+            <td>持续性</td>
+          </tr>
+          <tr>
+            <td>影刀 RPA</td>
+            <td>持续采购 <b>10 个账号</b>，约 4 万/年；与 Codex 实现效果互补，用于稳定调度与多人协作运行</td>
+            <td>年费约 40,000<br>（半年摊销约 20,000）</td>
+            <td>持续性（年付）</td>
+          </tr>
+          <tr>
+            <td>机房台式机</td>
+            <td>规划两台约 1 万/台；本期先买 1 台</td>
+            <td>本期 10,000<br>（后续另 10,000）</td>
+            <td>一次性</td>
+          </tr>
+          <tr>
+            <td>全栈工程师人力</td>
+            <td>18,000～20,000 元/月</td>
+            <td>半年 108,000～120,000</td>
+            <td>持续性</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px">
+        采集自动化策略：优先用 Codex 实现爬虫 / RPA 效果并按业务反馈补充完善；影刀 10 账号作为持续运行与协作底座，不替代 Codex 开发，二者互补。汇率按 1 美元 ≈ 7.2 元估算。
+      </p>
+
+      <h3>5.2 半年预算汇总（一目了然）</h3>
+      <div class="grid-2">
+        <div class="mini" style="border-color:#b7d5cc;background:var(--soft)">
+          <h4>A. 不含人力</h4>
+          <p style="color:var(--ink);font-size:15px;margin:8px 0">
+            云资源 2～3 万<br>
+            + Quick BI 0.45 万<br>
+            + Codex ≈ 0.86 万<br>
+            + 影刀 10 账号 4 万（年费计入）<br>
+            + 台式机 1 万<br>
+          </p>
+          <p style="margin:0;font-size:20px;font-weight:800;color:var(--accent)">合计约 <span class="money">8.3～9.3 万</span></p>
+          <p style="margin:8px 0 0;font-size:12px">若影刀按半年摊销 2 万计，则不含人力约 <b>6.3～7.3 万</b>。</p>
+        </div>
+        <div class="mini" style="border-color:#c5d0e8;background:var(--soft-2)">
+          <h4>B. 含人力（全部）</h4>
+          <p style="color:var(--ink);font-size:15px;margin:8px 0">
+            汇总 A（影刀年费口径）8.3～9.3 万<br>
+            + 全栈人力 10.8～12.0 万<br>
+          </p>
+          <p style="margin:0;font-size:20px;font-weight:800;color:#1e3a5f">合计约 <span class="money">19.1～21.3 万</span></p>
+          <p style="margin:8px 0 0;font-size:12px">人力按 18～20K/月 × 6 个月；第二台台式机与资金清分平台外采另计。</p>
+        </div>
+      </div>
+
+      <h3>5.3 Quick BI 规格</h3>
+      <table class="money">
+        <thead>
+          <tr><th>规格</th><th>月费</th><th>半年</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>高级版 10 用户</td>
+            <td>750 元</td>
+            <td>4,500 元</td>
+            <td>本方案唯一 BI 新购档。若帆软合同已覆盖且可用，则汇总中扣减 0.45 万。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 6 -->
+    <section class="block" id="s6">
+      <h2><span class="num">6</span>主项目推进计划</h2>
+      <p class="sec-desc">主项目与子项目依赖排序：先盘点与云底座，再采集提效，再结果表与预估，最后半年度系统化深化。</p>
+
+      <div class="diagram">
+        <p class="cap">图 7 · 主项目与子项目依赖关系</p>
+        <div class="swim">
+          <div class="lane">
+            <div class="label">主项目</div>
+            <div class="content">
+              <span class="chip" style="font-weight:700;background:var(--soft)">财务与经营管理报表自动化（出具日 18→10）</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">P0 底座</div>
+            <div class="content">
+              <span class="chip">① API/系统盘点</span>
+              <span class="chip">② 关账阻塞清单</span>
+              <span class="chip">③ 云服务器·计算引擎·云数据库</span>
+              <span class="chip">④ 公共 DIM 起步</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">P1 采集</div>
+            <div class="content">
+              <span class="chip">⑤ 资金账单 RPA</span>
+              <span class="chip">⑥ 店铺账单 RPA</span>
+              <span class="chip">⑦ 费用审批钉钉 ODS–DWD</span>
+              <span class="chip">⑧ 销售库存半人工</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">P2 结果</div>
+            <div class="content">
+              <span class="chip">⑨ 营业额天表（已接通）</span>
+              <span class="chip">⑩ 预估规则确认与预估结果表</span>
+              <span class="chip">⑪ 费用资金核对提效</span>
+            </div>
+          </div>
+          <div class="lane">
+            <div class="label">P3 半年</div>
+            <div class="content">
+              <span class="chip">⑫ 跨境进销存</span>
+              <span class="chip">⑬ 全平台营业额</span>
+              <span class="chip">⑭ 货值供应链</span>
+              <span class="chip">⑮ 账单/结余 API 化与清分平台评估</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>6.1 子项目排序与依赖说明</h3>
+      <ul class="dep-list">
+        <li>
+          <div class="ord">01</div>
+          <div>
+            <b>开放平台 API 与系统管理员清单盘点</b>（运营协同）<br>
+            <span style="color:var(--muted);font-size:13px">无依赖。后续所有 API 集成与缺口获取的前置条件。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord">02</div>
+          <div>
+            <b>财务 10 号前关账阻塞事项清单</b>（财务协同）<br>
+            <span style="color:var(--muted);font-size:13px">无依赖。决定「提前给数 / 预估出表」范围，牵引预估与优先级。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord">03</div>
+          <div>
+            <b>云底座建设</b>（云服务器、大数据计算引擎、云数据库、调度）<br>
+            <span style="color:var(--muted);font-size:13px">依赖：采购开通。所有 ODS/DWD/结果表的技术前提；替换本地库主存。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord">04</div>
+          <div>
+            <b>公共维度 DIM</b>（金蝶 / 钉钉 / 聚水潭 / 领猫）<br>
+            <span style="color:var(--muted);font-size:13px">依赖：03 + 01。为明细关联与管理口径统一提供维度。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord">05</div>
+          <div>
+            <b>资金账单 RPA 入仓</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：03；台式机、Codex 实现与影刀 10 账号。解决 200+ 账户收集瓶颈。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord">06</div>
+          <div>
+            <b>店铺账单 RPA 入仓</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：03；可与 05 并行。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord">07</div>
+          <div>
+            <b>费用审批钉钉集成（ODS–DWD）+ 归属填报规范</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：03、04；财务/业务协同。费用归属质量门禁。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord">08</div>
+          <div>
+            <b>销售 + 库存半人工提效</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：03；可与 05–07 并行。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord p2">09</div>
+          <div>
+            <b>营业额天结果表（已接通平台）</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：03、04、相关销售入仓。前三月可先交付已接通范围。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord p2">10</div>
+          <div>
+            <b>预估报表规则确认与系统预估结果表</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：02（阻塞与预估范围）、09 及费用/成本相关输入。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord p2">11</div>
+          <div>
+            <b>费用 / 资金核对提效</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：05、07 有稳定明细后；半年度再叠加自研与 OA 规范。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord p3">12</div>
+          <div>
+            <b>跨境进销存打通</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：03、08 经验复用、跨境平台 API（01 盘点结果）。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord p3">13</div>
+          <div>
+            <b>全平台营业额系统化天表</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：09 扩展 + 各平台 API/RPA 覆盖。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord p3">14</div>
+          <div>
+            <b>货值供应链可靠性</b>（采购、供应商、仓、在库/在途、SKU 天成本、头程分摊）<br>
+            <span style="color:var(--muted);font-size:13px">依赖：04（领猫等）、12（跨境在途）、采购流水入仓。</span>
+          </div>
+        </li>
+        <li>
+          <div class="ord p3">15</div>
+          <div>
+            <b>店铺/资金等 API 化 + 资金结余评估 + 资金清分平台评估</b><br>
+            <span style="color:var(--muted);font-size:13px">依赖：05–07 稳定运行后的升级；清分外采单独决策。</span>
+          </div>
+        </li>
+      </ul>
+
+      <h3>6.2 阶段里程碑（与主项目对齐）</h3>
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>必须完成的子项目</th><th>里程碑含义</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>第 1 个月</td>
+            <td>01、02、03 启动并基本可用；04 起步；05/07 开工</td>
+            <td>云底座可写数；盘点与阻塞清单闭环启动</td>
+          </tr>
+          <tr>
+            <td>前三个月末</td>
+            <td>05、06、07、08、09、11（提效版）；10 规则确认推进</td>
+            <td>人效目标达成；主流程未打断；已接通营业额天表可用</td>
+          </tr>
+          <tr>
+            <td>半年度末</td>
+            <td>10 系统预估；12、13、14；15 评估结论</td>
+            <td>系统化方案成型；经营融合与货值/跨境能力具备；10 号路径条件具备</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      CEMOY IT 半年度工作规划 · 正式版 · 文件：docs/IT半年度工作规划-正式版.html
+    </footer>
+  </div>
+</body>
+</html>
