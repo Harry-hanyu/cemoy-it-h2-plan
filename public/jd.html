@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>招聘 · 全栈开发工程师</title>
+  <style>
+    :root {
+      --bg: #f2f0eb;
+      --paper: #fffcf7;
+      --ink: #15202b;
+      --muted: #5a6472;
+      --line: #d5d0c6;
+      --accent: #0b4f45;
+      --soft: #e7f2ef;
+      --soft-2: #eef1f6;
+      --warn: #8a4b12;
+      --warn-bg: #f7f0e6;
+      --card: #fff;
+      --shadow: 0 10px 30px rgba(21, 32, 43, .06);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, #e8efe9 0, transparent 260px),
+        var(--bg);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 32px 18px 72px; }
+    .hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 32px 32px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .14em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(26px, 4vw, 36px);
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+    .lead { margin: 0; color: var(--muted); max-width: 46em; }
+    .tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 18px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent);
+      border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
+    }
+    .tag.gray { background: var(--soft-2); color: #334155; border-color: var(--line); }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .meta .item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .meta .k { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .meta .v { font-size: 15px; font-weight: 700; }
+    .meta .v.pay { color: var(--accent); font-size: 18px; }
+    nav.toc {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(242,240,235,.92);
+      backdrop-filter: blur(8px);
+    }
+    nav.toc a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13px;
+      padding: 7px 11px;
+      border-radius: 999px;
+    }
+    nav.toc a:hover { background: #fff; }
+    section.block {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 26px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+    h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .num {
+      width: 26px; height: 26px; border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--soft); color: var(--accent);
+      font-size: 12px; font-weight: 800;
+    }
+    .sec-desc { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    h3 { margin: 18px 0 8px; font-size: 15px; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 8px; padding-left: 1.2em; }
+    li { margin: 6px 0; }
+    .note {
+      border-left: 3px solid var(--accent);
+      background: var(--soft);
+      padding: 12px 14px;
+      border-radius: 0 10px 10px 0;
+      margin: 12px 0;
+      font-size: 14px;
+    }
+    .note.warn {
+      border-left-color: var(--warn);
+      background: var(--warn-bg);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .mini {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: var(--paper);
+    }
+    .mini h4 { margin: 0 0 8px; font-size: 14px; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 13px;
+      font-weight: 650;
+    }
+    .pill.em {
+      background: var(--soft);
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+      color: var(--accent);
+    }
+    .duty li b { color: var(--accent); }
+    .apply {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .apply .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 18px;
+    }
+    @media (max-width: 720px) {
+      .meta, .grid-2 { grid-template-columns: 1fr; }
+      .hero, section.block { padding: 20px 16px; }
+    }
+    @media print {
+      nav.toc { display: none; }
+      body { background: #fff; }
+      section.block, .hero { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">CEMOY · IT HIRING</div>
+      <h1>全栈开发工程师</h1>
+      <p class="lead">
+        综合技术向 · 1+1 精干团队 · 入职即实战交付。  
+        不是单一工种，而是 Java / Python / 前端 / 测试 / 数据 / 架构与项目推进的综合人才。
+      </p>
+      <div class="tags">
+        <span class="tag">Python 精通</span>
+        <span class="tag">Java 精通</span>
+        <span class="tag gray">前端</span>
+        <span class="tag gray">后端</span>
+        <span class="tag gray">测试</span>
+        <span class="tag gray">数据开发</span>
+        <span class="tag gray">数据分析</span>
+        <span class="tag gray">项目 / 架构</span>
+        <span class="tag">DataWorks 加分</span>
+      </div>
+      <div class="meta">
+        <div class="item">
+          <div class="k">薪资范围</div>
+          <div class="v pay">18K – 20K</div>
+        </div>
+        <div class="item">
+          <div class="k">工作地点</div>
+          <div class="v">上海</div>
+        </div>
+        <div class="item">
+          <div class="k">招聘人数 / 汇报</div>
+          <div class="v">1 人 · IT 负责人</div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <a href="#role">定位</a>
+      <a href="#duty">职责</a>
+      <a href="#req">要求</a>
+      <a href="#no">不适合谁</a>
+      <a href="#interview">面试重点</a>
+      <a href="#apply">投递</a>
+    </nav>
+
+    <section class="block" id="role">
+      <h2><span class="num">1</span>岗位定位</h2>
+      <p class="sec-desc">小团队、共担结果，要求直接上手。</p>
+      <div class="note">
+        公司 IT 采用 <b>1+1</b> 配置。本岗位与 IT 负责人共同对交付结果负责，进组就能干活，能独立闭环，也能并肩联调。
+      </div>
+      <div class="pill-row" style="margin:14px 0">
+        <span class="pill em">Java 后端</span>
+        <span class="pill em">Python 开发</span>
+        <span class="pill">前端</span>
+        <span class="pill">测试</span>
+        <span class="pill">数据开发 / 分析</span>
+        <span class="pill">轻量架构</span>
+        <span class="pill">项目管理</span>
+      </div>
+      <p style="margin:0">
+        当前重点：财务与经营管理数据自动化（采集、清洗、核算、报表）、云端数据链路、业务系统 API 对接、RPA / 爬虫类自动化补齐等。
+      </p>
+    </section>
+
+    <section class="block" id="duty">
+      <h2><span class="num">2</span>工作职责</h2>
+      <p class="sec-desc">端到端参与，对结果负责。</p>
+      <ol class="duty">
+        <li><b>后端开发：</b>Java / Python 完成接口、服务、脚本与集成；对接金蝶、钉钉、聚水潭、领猫、电商开放平台等 API。</li>
+        <li><b>数据开发：</b>参与 ODS → DWD → DWS / 天结果表分层；调度、清洗去重、维度关联、管理口径核算（分摊、成本、费用归因、预估等）。</li>
+        <li><b>数据分析支持：</b>按财务 / 经营需求输出可核对明细与结果表；配合对账、验数、规则复算。</li>
+        <li><b>前端开发：</b>内部工具、配置页、简单管理端或报表辅助页面；不追求纯视觉岗，要求独立交付可用界面。</li>
+        <li><b>测试与质量：</b>自测、联调、回归；关键链路具备可复现校验（条数 / 金额勾稽、失败告警等）。</li>
+        <li><b>项目推进：</b>拆任务、估时、跟风险；对齐财务 / 运营 / 供应链协作节点。</li>
+        <li><b>架构落地：</b>在云服务器 / 云数据库 / 大数据计算体系上做可维护设计，避免不可运维的脚本堆砌。</li>
+        <li><b>自动化提效：</b>参与 RPA / 爬虫采集（资金账单、店铺账单等），与影刀等工具配合，保障定时稳定跑数。</li>
+        <li><b>AI 提效：</b>熟练使用 Cursor、Codex 等工具，落到编码、测试与文档，保证质量门禁。</li>
+      </ol>
+    </section>
+
+    <section class="block" id="req">
+      <h2><span class="num">3</span>任职要求</h2>
+      <p class="sec-desc">硬性门槛：精通两项 + 多域实战。</p>
+
+      <div class="grid-2">
+        <div class="mini">
+          <h4>必须精通</h4>
+          <ul>
+            <li><b>Python：</b>独立完成采集、清洗、服务 / 脚本、大数据相关开发与排错。</li>
+            <li><b>Java：</b>真实项目后端经验；独立完成接口、服务、联调与定位（Spring 常见即可）。</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h4>优先加分</h4>
+          <ul>
+            <li>用过 <b>阿里云 DataWorks</b>（调度、集成、MaxCompute / ODPS 等）。</li>
+            <li>电商 / 零售 / 财务数据，或金蝶、钉钉、聚水潭对接经验。</li>
+            <li>影刀 RPA / 爬虫生产运行；熟悉 RDS、ECS 等云产品。</li>
+            <li>持续实践最新 AI 研发工具。</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>必须会（均需实战，非仅培训课）</h3>
+      <ul>
+        <li><b>前端：</b>至少一种主流框架或扎实 HTML/CSS/JS，能独立做出可用页面。</li>
+        <li><b>后端：</b>除 Java / Python 外，接触过 PHP 等更佳；理解 HTTP、鉴权、队列、定时任务。</li>
+        <li><b>测试：</b>自测用例 / 接口测试，能联调与回归。</li>
+        <li><b>数据开发：</b>理解 ODS/DWD/DWS 或同类分层，SQL 扎实；有调度、同步、清洗经验。</li>
+        <li><b>数据分析：</b>按业务口径出数、对差异、解释结果，不只是跑通 SQL。</li>
+        <li><b>项目与架构：</b>小团队拆任务、设计模块边界、评估技术债；有需求到上线完整交付经历。</li>
+      </ul>
+    </section>
+
+    <section class="block" id="no">
+      <h2><span class="num">4</span>我们不适合谁</h2>
+      <ul>
+        <li>只会单一技术栈，不愿碰数据或前端联调。</li>
+        <li>需要长时间带教才能参与正式交付。</li>
+        <li>只做需求翻译，不写代码、不背结果。</li>
+        <li>简历很全，但说不清自己亲手上线过的项目细节。</li>
+      </ul>
+      <div class="note warn">
+        <b>到岗要求：</b>直接上手实战，入职即可参与交付，不接受纯培养向。
+      </div>
+    </section>
+
+    <section class="block" id="interview">
+      <h2><span class="num">5</span>面试会重点看</h2>
+      <ol>
+        <li>Python、Java 各讲一个 <b>你本人主导</b> 的项目：难点、解法、上线效果。</li>
+        <li>一条完整数据链路：从采集到清洗到结果表，你负责哪几段。</li>
+        <li>现场或作业：SQL / 小脚本 / 接口排错思路。</li>
+        <li>能否在一周内进入财务自动化相关任务并产出可验收结果。</li>
+      </ol>
+    </section>
+
+    <section class="block" id="apply">
+      <h2><span class="num">6</span>投递说明</h2>
+      <div class="apply">
+        <div>
+          <ul style="margin:0">
+            <li>请附：简历 + 可展示的项目说明（Git 链接或文档均可）。</li>
+            <li>注明：到岗时间、薪资期望、是否有 DataWorks / 数仓实战。</li>
+            <li>联系方式：（由招聘方填写）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note" style="margin-top:16px;margin-bottom:0">
+        <b>一句话：</b>招聘全能全栈 1 名——Python、Java 必须精通，前端 / 后端 / 测试 / 数据开发 / 数据分析 / 项目与架构都要能上手；最好用过 DataWorks。小团队直接实战，对交付结果负责，薪资 18–20K。
+      </div>
+    </section>
+
+    <footer>
+      CEMOY IT 招聘 · 全栈开发工程师 · 文件：docs/招聘JD-全栈开发工程师.html
+    </footer>
+  </div>
+</body>
+</html>
