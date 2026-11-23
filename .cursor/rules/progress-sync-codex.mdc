@@ -1,0 +1,19 @@
+---
+description: 与另一台机器 Codex 协同时的 progress.md / git push 规矩
+alwaysApply: true
+---
+
+# 进度同步规矩（Cursor ↔ Codex 双机）
+
+本机 Cursor 与另一台机器上的 Codex 协同韩路/业财等项目时，有实质推进必须遵守：
+
+1. **更新当前项目根目录 `progress.md`**：当前状态 / 阻塞 / 下一步 / 可复制命令。
+2. **默认 commit + push**：用户未禁止提交时，把相关改动 + `progress.md` 一并 commit，并 push 到远程（规划主仓多为 `cemoy-it-h2-plan`；采集主仓多为 `hanlu-odps-sync`）。
+3. **用户说「先别提交 / 先别推」时**：只更新本地 `progress.md`，等下一步指令。
+4. **禁止进 Git**：密钥、`*.local.env`、token、平台 API 明文 JSON。
+5. **业财口径以数据字典 v3 为准**：贸易类型用「批发/跨境」；成本按天、次日生效；不要用旧「大贸」或 15 天平滑。
+
+## Session 开工
+
+- 先 `git pull`（或 `--ff-only`），再读 `progress.md`。
+- **不要假设**其它聊天窗口已经帮你推过。
