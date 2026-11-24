@@ -205,3 +205,4 @@ bash ~/Projects/cemoy-it-h2-plan/scripts/publish-pages.sh
 ## 2026-11-24 交接 Codex：OA ODS 回看重拉
 - 详文：`docs/handoff-oa-ods-按更新补拉-给Codex.md`（采集仓同步 `Harry-hanyu/hanlu-odps-sync`）
 - 样例漏打款状态：`202611211338000318307`；先建单后打款，按创建日单日拉会漏
+- **最小代价约束（2026-11-24）**：只 lookback≈14 向前+补近期新打款；禁止全史重拉 ODS、禁止全量重跑 mid LLM

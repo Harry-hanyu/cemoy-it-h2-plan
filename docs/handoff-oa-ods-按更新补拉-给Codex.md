@@ -1,9 +1,28 @@
 # Handoff：钉钉 OA ODS「先建单后打款」漏状态 — 给 Codex
 
 > 交接人：Cursor（本机）→ Codex（另一台）  
-> 日期：2026-11-24  
+> 日期：2026-11-24（修订：强调**最小代价**，禁止全量重拉/全量重跑 LLM）  
 > 仓库：`hanlu-odps-sync`（本文件所在仓）  
-> **只改采集/分区回写策略；业财口径仍以数据字典 v3 为准（批发/跨境等与本单无关）。**
+> **只改采集向前策略 + 小范围补漏；业财口径仍以数据字典 v3 为准。**
+
+---
+
+## 0. 范围铁律（最小代价 — 必须遵守）
+
+### 要做
+
+1. **改日批向前**：之后每天能刷新「近期创建且后来才打款」的单（lookback 小窗口，默认 **14 天**）。  
+2. **只补近期受影响**：对 lookback 窗内、或明确点名的样例单，刷新 ODS → 仅对这些单涉及的 **pay_date** 补跑 pay（及必要时 mid/fee）。  
+3. **LLM（mid）**：仅对**本次新进入 pay、或 op/明细相对旧 mid 有实质变化**的实例打标；能复用已有 `mid_dt_oa_llm_tag_di` 行则**不要重打**。
+
+### 禁止（用户明确要求）
+
+- **禁止**从 Q-01 / 全历史 ODS 再拉一遍钉钉。  
+- **禁止**对历史已入账、状态已正确的 pay/fee **整表重算**。  
+- **禁止**对历史 mid **全量再跑一遍 DeepSeek/LLM**（费钱费时，且与本次无关）。  
+- **禁止**「为了整齐」把 109 个支付日 LLM+fee 全部重刷。
+
+历史里已经对、且不受「后打款」影响的数据：**不动**。
 
 ---
 
@@ -17,153 +36,112 @@
 | ODS `ds=20261121` | **有**头+4 行明细+4 步 op；落库时 `status=RUNNING`，`pay_time` 空；op 仅到「财务审核 AGREE」，**无打款人** |
 | `dwd_dt_oa_pay_event_di` / fee | **无**（规则正确：未打款不入账） |
 
-根因：**ECS 日批按「自然日创建/发起时间窗」拉 `instanceIds/query`，写入对应 `ds`。**  
-创建日之后才打款时，后续日批不会再扫到该实例 → ODS 状态陈旧 → DWD 永远进不去。
-
-**不是** pay_event 少算；是 **ODS 不再刷新**。
+根因：ECS 日批按**创建时间单日窗**拉列表；创建日之后才打款时，后续日批扫不到 → ODS 陈旧 → DWD 进不去。  
+**不是**要否定历史全量；只是向前采集策略缺「刷新」。
 
 ---
 
 ## 2. 目标行为
 
-每天跑完后，凡「近期有状态变化（尤其打款）」的单，ODS 头/明细/op 应被**覆盖成最新**，使次日 DW：
-
-`ready → pay_event → mid → fee_detail`
-
-能看到打款人 AGREE / 付款时间 / 多次付款评论。
+1. **向前**：日批 lookback（如 14 天）重拉并**按 pid 覆盖** ODS 对应创建日分区中的行。  
+2. **补漏**：对 lookback 内新出现打款的单，只补其 pay_date 的 pay →（缺 mid 才 LLM）→ fee。  
+3. **样例验收**：`202611211338000318307` 能进 pay（若源已打款）。
 
 ---
 
-## 3. 推荐方案（给 Codex 落地）
+## 3. 推荐方案（最小代价落地）
 
-钉钉 `POST /v1.0/workflow/processes/instanceIds/query` 的 `startTime/endTime` **一般是按创建时间**，多数账号**没有可靠的「按更新时间」列表滤镜**。  
-因此不要死等「updateTime API」；用下面组合：
+钉钉 `instanceIds/query` 的时间窗**多是创建时间**，不要死等 updateTime API。
 
-### 方案 A（主推，好落地）
+### 日批（向前，主改）
 
-**日批 = 回看窗口重拉 + 按实例覆盖写 ODS**
+**A1（主推）**：`--lookback-days` 默认 **14**（不要默认 90/365）。
 
-1. 每天仍跑 `run_dingtalk_oa_daily.py`，但不要只拉「昨天创建」：
-   - `lookback_days` 默认建议 **14～30**（可 env / CLI 配置，先 14）
-   - 对每个自然日 `d in [today-lookback, today-1]`（或含今天，按现有 `--ds` 习惯对齐）调用现有 `list_instance_ids(process_code, start_ms, end_ms)`
-   - **去重** `process_instance_id` 后逐个 `get_instance` 拉详情
-2. **写入策略改掉「整分区只代表创建日快照」的语义冲突**（二选一，推荐 A2）：
+- 对 `d in [today-lookback, today-1]` list → 去重 pid → get_instance  
+- ODS `ds` 仍 = **创建/发起日**  
+- 写回：对涉及分区 **合并覆盖同 pid**（读旧分区 → 替换本批 pid → 写回），禁止误删同分区其它单  
 
-#### A1 — 分区仍=创建日，但允许日后覆盖该分区里的行
+**可选 A2（更省 API）**：T-1 增量 + 仅重拉近 N 天 ODS 中「未打款/未完结」pid。可与 A1 二选一或组合；**仍限制在近 N 天**。
 
-- `ds` 仍用实例创建日（或申请日）`yyyyMMdd`
-- 对回看窗扫到的每个实例：写入其**创建日分区**，**覆盖该 `process_instance_id` 的旧行**（头/行/op 整单替换），而不是「只在首次出现时写」
-- 实现注意：当前是 `reset_partition` + 全日重写；回看多日时应对**每个涉及的创建日分区**做「读出其他实例 + 合并本批更新实例 + 写回」，或按 pid 删后 append
+### 一次性补漏（只做小窗，不做全史）
 
-#### A2 — 更干净：增加「未完结/无打款」显式重拉
+1. 用新日批逻辑跑 **一次** `--lookback-days 14`（或 30，上线时与用户确认，**禁止**无上限全史）。  
+2. 对比刷新前后：哪些 pid **新出现**打款人 AGREE / pay_time。  
+3. **仅对这些 pid**：
+   - 跑 pay 写入对应 `pay_date` 分区（用现有 merge 逻辑，勿 wipe 全表）  
+   - mid：若该 `(pid, line_no, pay_ds)` 已有 mid **跳过 LLM**；仅缺的才调 DeepSeek  
+   - fee：仅重跑这些 `pay_date` 分区（或按支付日脚本只跑命中日）  
+4. 样例单若 lookback 含 `20261121`，应被覆盖；否则可 **单 pid 定点** get_instance 覆盖，不要为此扩大到全史。
 
-- 日批仍拉 T-1 创建窗（保增量）
-- 额外：从 MC 扫近 N 天 ODS 头表，筛 `status != COMPLETED` 或 `pay_time` 空或 op 无打款人 AGREE 的 `process_instance_id`，**强制再 get_instance 覆盖**
-- 与 A1 回看可同时用（回看保「已完结但创建很早、窗外」的边界；未完结表保窗内状态推进）
+### LLM 费用控制
 
-**建议 Codex 先做：A1 回看 14 天 + 按创建日分区覆盖整单；再视需要加 A2。**
-
-### 方案 B（若官方确认有更新时间）
-
-若联调发现 query 支持按更新时间 / 或有事件订阅：改为 `modified` 窗拉取，写入时仍按**创建日**定位分区并覆盖。以实测为准，不要假设。
+| 场景 | 是否调 LLM |
+|------|------------|
+| 历史 mid 已存在且 line 文本未变 | **否** |
+| 本次新进 pay 的实例 | **是**（仅这些） |
+| 仅 status/pay_time/op 变、明细行未变 | **优先复用 mid**，不要整单重打 |
 
 ---
 
-## 4. 要改的代码 / 文件（ECS 同源）
+## 4. 要改的代码 / ECS
 
-本机路径：`~/Projects/hanlu-odps-sync`  
-ECS 路径：`/opt/hanlu-odps-sync`（改完需同步到 ECS，cron 已指向此处）
+本机：`~/Projects/hanlu-odps-sync`  
+ECS：`/opt/hanlu-odps-sync`
 
 | 文件 | 改什么 |
 |------|--------|
-| `src/hanlu_sync/platforms/dingtalk_oa/collectors.py` | `collect_reimburse_bundle` / 新增 `collect_reimburse_lookback`：多日 list → 去重 → detail；写回时带「覆盖同 pid」语义 |
-| `src/hanlu_sync/platforms/dingtalk_oa/client.py` | 一般不用改；若加参数（statuses 等）在此扩展 |
-| `scripts/run_dingtalk_oa_daily.py` | 增加 `--lookback-days`（默认 14）；调用新采集；**禁止**对回看多日简单 `reset_partition` 只留当天新单 |
-| `scripts/backfill_dingtalk_oa.py`（若有） | 与日批策略对齐说明 |
-| `docs/ods-钉钉OA报销接入.md` | 写明：列表窗=创建时间；日批=回看覆盖；分区 `ds` 含义 |
-| `progress.md` | 完成后更新状态 |
+| `collectors.py` / `run_dingtalk_oa_daily.py` | lookback + 按 pid 合并覆盖；CLI `--lookback-days` 默认 14 |
+| `docs/ods-钉钉OA报销接入.md` | 写明创建窗 + 回看刷新 + **不做全史重拉** |
+| `progress.md` | 完成后更新 |
 
-**DW 节点**（`dataworks/oa_reimburse/01_*.py` / `03_*.sql`）：  
-本次**不必改口径**——只要 ODS 刷新出打款，现有 pay_event（要求打款人/多次付款）自然能吃到。  
-若只补 ODS 不重跑 DWD，需对涉及 `pay_date` **补跑** pay → mid → fee。
+**DW**：不必改口径。补数时只对**命中的 pay_date** 跑实例/补数据，禁止工作流「全历史重跑」。
 
-### ECS 操作步骤（Codex / 运维）
+### ECS 操作
 
-1. 本机改完并 git push  
-2. 用现有方式同步到 ECS（`scripts/chrome_ecs_run.py` 上传 tgz，或你们惯用的 scp/rsync）  
-   - 至少同步：`src/hanlu_sync/platforms/dingtalk_oa/**`、`scripts/run_dingtalk_oa_daily.py`  
-3. 确认 cron 仍在（约 05:00）：
-   ```bash
-   crontab -l | grep run_dingtalk_oa_daily
-   # 期望类似：
-   # 0 5 * * * TZ=Asia/Shanghai cd /opt/hanlu-odps-sync && . .venv/bin/activate && \
-   #   export PYTHONPATH=... && timeout 3h python3 -u scripts/run_dingtalk_oa_daily.py \
-   #   >> /var/log/hanlu-dingtalk-oa-daily.log 2>&1
-   ```
-4. 手工试跑（建议先 dry-run / 小 lookback）：
-   ```bash
-   cd /opt/hanlu-odps-sync && . .venv/bin/activate && export PYTHONPATH=src
-   python3 -u scripts/run_dingtalk_oa_daily.py --lookback-days 14
-   # 若暂未改 CLI，按你实现的参数名为准
-   ```
-5. 日志：`/var/log/hanlu-dingtalk-oa-daily.log`  
-6. 验收样例（必须）：
-   ```text
-   business_id = 202611211338000318307
-   ODS 头：status 应接近钉钉最新；pay_time / op 含打款人 AGREE（若源已打款）
-   再跑 pay_event（DW 补数据或 ECS scripts/dw_oa_build_pay_events.py --biz-ds 创建日）
-   → dwd_dt_oa_pay_event_di 应出现该单
-   ```
+1. git pull / 同步改动到 `/opt/hanlu-odps-sync`  
+2. cron 仍 05:00；确认带 lookback（或代码默认 14）  
+3. **一次**小窗试跑：`python3 -u scripts/run_dingtalk_oa_daily.py --lookback-days 14`  
+4. 日志：`/var/log/hanlu-dingtalk-oa-daily.log`  
+5. 验收样例 `202611211338000318307` → ODS 打款信息 → 仅相关 pay_date 进 DWD  
 
 ---
 
-## 5. 分区与参数（勿搞混）
+## 5. 分区口径（勿混）
 
 | 对象 | 含义 |
 |------|------|
-| ODS `ds` | 建议继续 = **发起/创建业务日**（单号前缀日）；回看是为了**刷新该分区里的行** |
+| ODS `ds` | 发起/创建日；回看是为刷新该分区内行 |
 | DW `bizdate=$[yyyymmdd-1]` | 调度 T-1 |
-| pay / fee 表 `ds` | **支付归属日**（不是发起日） |
-| pay 行字段 `biz_date` | 来源 ODS 发起日，供 fee SQL `l.ds = p.biz_date` 回联明细 |
-
-fee 节点线上曾误用 `ods_biz_ds`，本地 `03_dwd_oa_fee_detail.sql` 已改为 `biz_date`——若生产未粘贴，与本次漏打款是**另一问题**。
+| pay/fee `ds` | **支付归属日** |
+| pay.`biz_date` | ODS 发起日，供 fee 回联 |
 
 ---
 
 ## 6. 验收清单
 
-- [ ] `202611211338000318307`：钉钉已完结打款后，日批（或手工 lookback）后 ODS 头/op 含打款信息  
-- [ ] 同单进入 `dwd_dt_oa_pay_event_di`（`currency/amount` 合理）  
-- [ ] 回看重跑**不删除**窗内其他未改动实例  
-- [ ] cron 05:00 正常；日志无大面积 API 失败  
-- [ ] 更新本仓 `progress.md`
+- [ ] 日批 lookback=14 上线，cron 正常  
+- [ ] 样例单 ODS 刷新且能进 pay（源已打款前提下）  
+- [ ] **未**触发全历史 ODS 重拉  
+- [ ] **未**全量重跑 mid LLM（API 调用量应接近「新增打款单数」量级）  
+- [ ] 历史已正确的 pay/fee 分区无被整分区无故清空  
+- [ ] 更新 `progress.md`
 
 ---
 
-## 7. 不要做的事
+## 7. 不要做的事（再强调）
 
-- 不要把密钥写进仓库（钉钉在 ECS `/root/.cursor/local/dingtalk.env`）  
-- 不要把「未打款」强行写入 pay_event（规则仍是：无打款人 AGREE 且无多次付款格式 → 不入账）  
-- 不要假设 list API 已是更新时间，除非抓包/文档实证  
-- 不要 `ensure_table` 因列序不同整表删除（currency ADD COLUMNS 教训）
-
----
-
-## 8. 相关现状摘要
-
-- ECS 采集脚本：`scripts/run_dingtalk_oa_daily.py`  
-- 采集实现：`src/hanlu_sync/platforms/dingtalk_oa/collectors.py`（`_day_ms` + `list_instance_ids`）  
-- 客户端：`.../client.py` → `/v1.0/workflow/processes/instanceIds/query`  
-- DW 粘贴包：`dataworks/oa_reimburse/`  
-- 历史：外币/币种已修并验收 `ACCEPT_PASS`；本 handoff 专治「状态不刷新」
+- 全历史 `backfill_dingtalk_oa --since 20250101` 当成本次解法  
+- `backfill_oa_dwd.py --phase all` / 全支付日 LLM  
+- 未打款强行入 pay_event  
+- `ensure_table` 因列序整表删除  
 
 ---
 
-## 9. 建议 Codex 提交说明
+## 8. 建议提交说明
 
 ```
-fix(oa-ods): lookback refresh so late payments update ODS
+fix(oa-ods): lookback-14 refresh late payments (no full rebackfill)
 
-DingTalk list is create-time based; re-pull last N days and
-overwrite instance rows so pay_event can see 打款人 after the fact.
+Forward daily re-pull last 14d and overwrite by pid; backfill only
+recent newly-paid instances. Do not re-run historical LLM tags.
 ```
