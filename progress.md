@@ -201,3 +201,7 @@ bash ~/Projects/cemoy-it-h2-plan/scripts/publish-pages.sh
 ```
 
 改 `docs/IT半年度工作规划-正式版.html` → 脚本同步到 `index.html` 并 push → Pages 约 1～2 分钟生效。
+
+## 2026-11-24 交接 Codex：OA ODS 回看重拉
+- 详文：`docs/handoff-oa-ods-按更新补拉-给Codex.md`（采集仓同步 `Harry-hanyu/hanlu-odps-sync`）
+- 样例漏打款状态：`202611211338000318307`；先建单后打款，按创建日单日拉会漏
