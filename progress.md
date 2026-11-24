@@ -4,28 +4,28 @@
 
 实质推进时必须：①更新本文件（状态/阻塞/下一步/可复制命令）；②未禁止则相关改动+本文件一并 `commit` + `push`；③说「先别提交/先别推」则只改本地；④密钥/`*.local.env`/token 禁止进 Git；⑤业财口径以字典 **v3** 为准（批发/跨境；成本按天次日生效）。开工先 `git pull` + 读本文件，勿假设其它窗口已推过。
 
-## 当前状态（2026-11-23）
+## 当前状态（2026-11-24）
 
-- **字典权威**：`docs/业财一体化-数据字典与取数规则-v3.xlsx`（桌面 `韩路/财务需求/规则定义/V3/` 同步）
-- **采集主仓**：`~/Projects/hanlu-odps-sync`（ECS→MC `hanlu_odps`）；本仓偏规划/字典/汇报
-- **全栈入职交接**：`docs/全栈入职-项目现状交接.md`（桌面 `韩路/` 有同名）
-- **协同**：已落规则 `.cursor/rules/progress-sync-codex.mdc`（全局 `~/.cursor/rules/` 同步）
+- **周会汇报稿**：`Desktop/韩路/周会汇报-业财进度-2026-11-24.md`（`docs/` 同步）— 口径已定 + 底座进数 + 报销外币验收 + 全栈入职 + 下一步出天表
+- **字典权威**：`docs/业财一体化-数据字典与取数规则-v3.xlsx`（桌面 `V3/`）
+- **采集**：`hanlu-odps-sync` — OA 外币验收 ACCEPT_PASS；DW `fee_detail` 待粘贴发布 `biz_date` 修复后重跑
+- **全栈入职交接**：`docs/全栈入职-项目现状交接.md`
 
 ### 阻塞
 
-- 本仓大量 docs/字典 xlsx 仍未入库（仅本地）；是否整包首推由你定
-- 采集侧细节以 `hanlu-odps-sync/progress.md` 为准（OA 回补等）
+- DW 日更：`dwd_oa_fee_detail` 线上仍引用旧列名，需 IDE 粘贴发布
+- 本仓大量字典 xlsx 仍未整包入库（可选）
 
 ### 下一步
 
-- 全栈按交接稿读 v3 + 跟 `hanlu-odps-sync` 一条 ODS 链路
-- 有实质改动即按上方规矩 pull → 改 → 写 progress → commit/push
+- 周会后：发 DW OA 修复 → 稳日更 → 按 v3 推 DIM/DWD/运营·财务天表
+- 全栈：读 v3 + 跟通一条 ODS 链路
 
 ### 可复制命令
 
 ```bash
-cd ~/Projects/cemoy-it-h2-plan && git pull --ff-only && head -40 progress.md
-cd ~/Projects/hanlu-odps-sync && git pull --ff-only && head -40 progress.md
+cd ~/Projects/cemoy-it-h2-plan && git pull --ff-only && head -50 progress.md
+open ~/Desktop/韩路/周会汇报-业财进度-2026-11-24.md
 ```
 
 ## 2026-11-20 数据字典 v3 最终版
