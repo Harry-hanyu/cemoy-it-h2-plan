@@ -4,6 +4,29 @@
 
 实质推进时必须：①更新本文件（状态/阻塞/下一步/可复制命令）；②未禁止则相关改动+本文件一并 `commit` + `push`；③说「先别提交/先别推」则只改本地；④密钥/`*.local.env`/token 禁止进 Git；⑤业财口径以字典 **v3** 为准（批发/跨境；成本按天次日生效）。开工先 `git pull` + 读本文件，勿假设其它窗口已推过。
 
+## 当前状态（2026-11-26）Codex 接力：DW 加工层（ODS 登记 + DWD）
+
+- **采集仓** `hanlu-odps-sync`：杭州/香港 ECS→`hanlu_odps` ODS 已通（聚水潭/领猫/跨境/OA/TK Ads）。
+- **本仓交接副本**：`docs/handoff-ecs-ods-to-dw-给Codex.md`（权威同采集仓同名文件）。
+- **请 Codex**：在 DataWorks「业财一体」登记 ODS、建质检，按字典 **v3** 做聚水潭/领猫成本·库存 DWD；**不要**做旺店通、不要改 ECS 采集。
+- 字典权威仍为 v3（批发/跨境；成本按天次日生效）。
+
+### 阻塞
+- DW 工作流/粘贴未齐（交给 Codex）。
+
+### 下一步
+- Codex 完成 P0/P1 后回写本文件 + `hanlu-odps-sync/progress.md` 并 push。
+
+### 可复制命令
+
+```bash
+cd ~/Projects/cemoy-it-h2-plan && git pull --ff-only
+sed -n '1,60p' docs/handoff-ecs-ods-to-dw-给Codex.md
+cd ~/Projects/hanlu-odps-sync && git pull --ff-only && sed -n '1,40p' progress.md
+```
+
+---
+
 ## 当前状态（2026-11-25）
 
 - **2026-11-25**：TikTok Marketing API 应用第 6 次重提。驳回原因：描述与权限不匹配（曾勾 Shop/诊断等，描述只写报表）。已改为应用名 `CAONAT Daily Ad Spend`，**仅勾选「报告」**；描述写明用 Consolidated Report（`/report/integrated/get/` + `/report/task/*`，`stat_time_day` + `spend`）拉**按天广告消耗**，GMV Max 用 `/gmv_max/report/get/`。状态已变 **待审核**。
