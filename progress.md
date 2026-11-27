@@ -2,27 +2,43 @@
 
 ## 进度同步规矩（Cursor ↔ 另一台 Codex）
 
-实质推进时必须：①更新本文件（状态/阻塞/下一步/可复制命令）；②未禁止则相关改动+本文件一并 `commit` + `push`；③说「先别提交/先别推」则只改本地；④密钥/`*.local.env`/token 禁止进 Git；⑤业财口径以字典 **v3** 为准（批发/跨境；成本按天次日生效）。开工先 `git pull` + 读本文件，勿假设其它窗口已推过。
+实质推进时必须：①更新本文件（状态/阻塞/下一步/可复制命令）；②未禁止则相关改动+本文件一并 `commit` + `push`；③说「先别提交/先别推」则只改本地；④密钥/`*.local.env`/token 禁止进 Git；⑤业财口径以字典 **v4** 为准（批发/跨境；成本按天次日生效；Ozon 四套时间与 ADS01 GMV/GSV 见 v4）。开工先 `git pull` + 读本文件，勿假设其它窗口已推过。
+
+## 当前状态（2026-11-27）数据字典 v4 已出
+
+- **权威字典改为 v4**：`docs/业财一体化-数据字典与取数规则-v4.xlsx`  
+  桌面同步：`~/Desktop/韩路/财务需求/规则定义/V4/`
+- **v4 相对 v3**：① Ozon 四套时间（创建/支付/发货/结算）按业务确认写入表2/表3/规则确认；② 运营天表去掉重复「净销售额」——`ADS01-07`=销售额_GMV，`ADS01-12`=净销售额_GSV；③ 继承 v3 批发/跨境与成本次日生效。
+- 首页优先读：`v4最终变更`。
+
+### 阻塞
+- 无（字典侧）
+
+### 下一步
+1. 实现/改采集与 DWD 时按 **v4** Ozon 时间与 ADS01 字段名落地  
+2. 继续 DW DWD（成本/库存）仍跟 v4 贸易类型与成本规则
+
+### 可复制命令
+
+```bash
+cd ~/Projects/cemoy-it-h2-plan && git pull --ff-only
+open "docs/业财一体化-数据字典与取数规则-v4.xlsx"
+open ~/Desktop/韩路/财务需求/规则定义/V4/业财一体化-数据字典与取数规则-v4.xlsx
+```
+
+---
 
 ## 当前状态（2026-11-26）Codex 接力：DW 加工层（ODS 登记 + DWD）
 
 - **采集仓** `hanlu-odps-sync`：杭州/香港 ECS→`hanlu_odps` ODS 已通（聚水潭/领猫/跨境/OA/TK Ads）。
-- **本仓交接副本**：`docs/handoff-ecs-ods-to-dw-给Codex.md`（权威同采集仓同名文件）。
-- **请 Codex**：在 DataWorks「业财一体」登记 ODS、建质检，按字典 **v3** 做聚水潭/领猫成本·库存 DWD；**不要**做旺店通、不要改 ECS 采集。
-- 字典权威仍为 v3（批发/跨境；成本按天次日生效）。
-
-### 阻塞
-- DW 工作流/粘贴未齐（交给 Codex）。
-
-### 下一步
-- Codex 完成 P0/P1 后回写本文件 + `hanlu-odps-sync/progress.md` 并 push。
+- **本仓交接副本**：`docs/handoff-ecs-ods-to-dw-给Codex.md`。
+- 字典权威已升 **v4**（见上节）。
 
 ### 可复制命令
 
 ```bash
 cd ~/Projects/cemoy-it-h2-plan && git pull --ff-only
 sed -n '1,60p' docs/handoff-ecs-ods-to-dw-给Codex.md
-cd ~/Projects/hanlu-odps-sync && git pull --ff-only && sed -n '1,40p' progress.md
 ```
 
 ---
